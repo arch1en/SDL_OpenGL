@@ -21,7 +21,7 @@
     <ClCompile Include="AppMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Globals.cpp">
+    <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -31,9 +31,6 @@
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Globals.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

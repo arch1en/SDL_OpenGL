@@ -61,12 +61,32 @@ bool AppMain::Init()
 bool AppMain::InitGL()
 {
 
+	if (glewInit())
+	{
+		g_sdldie("Unable to initialize glew");
+		return false;
+	}
 
+	glGenVertexArrays(NumVAOs, VAOs);
+	glBindVertexArray(VAOs[Triangles]);
+
+	GLfloat	vertices[NUM_VERTICES][2] = {
+		{ -0.90, -0.90 },
+		{  0.85, -0.90 },
+		{ -0.90,  0.85 },
+		{  0.90, -0.85 },
+		{  0.90,  0.90 },
+		{ -0.85,  0.90 }
+	};
+
+	glGenBuffers(NumBuffers, Buffers);
+	glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 	return true;
 }
 
-bool AppMain::Loop()
+bool AppMain::Loop() 
 {
 	while (m_running)
 	{
@@ -105,14 +125,10 @@ void AppMain::Render()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	glBegin(GL_POLYGON);
-		glColor3f(1.0, 0.0, 0.0);
-		glVertex3f(-1.0, -1.0, 0.0);
-		glColor3f(0.0, 1.0, 0.0);
-		glVertex3f(0.0, 1.0, 0.0);
-		glColor3f(0.0, 0.0, 1.0);
-		glVertex3f(1.0, 1.0, 0.0);
-	glEnd();
+	glBindVertexArray(VAOs[Triangles]);
+	glDrawArrays(GL_TRIANGLES, 0, NUM_VERTICES);
+
+	glFlush();
 }
 
 void AppMain::Events()
