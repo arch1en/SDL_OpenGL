@@ -1,6 +1,7 @@
 #include "AppMain.h"
 
 AppMain::AppMain()
+	:m_pWindow(nullptr)
 {
 }
 
@@ -70,7 +71,8 @@ bool AppMain::InitGL()
 	glGenVertexArrays(NumVAOs, VAOs);
 	glBindVertexArray(VAOs[Triangles]);
 
-	GLfloat	vertices[NUM_VERTICES][2] = {
+	GLfloat	vertices[NUM_VERTICES][2] = 
+	{
 		{ -0.90, -0.90 },
 		{  0.85, -0.90 },
 		{ -0.90,  0.85 },

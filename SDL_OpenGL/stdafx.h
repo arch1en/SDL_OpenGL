@@ -4,6 +4,8 @@
 #include <SDL.h>
 #include <GL/glew.h>
 #include <SDL_opengl.h>
+#include <fstream>
+#include <sstream>
 
 #define BIT(x) (1<<x)
 #define SEC(x) x*1000
