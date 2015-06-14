@@ -43,9 +43,12 @@ private:
 	Uint32			m_start;
 	bool			m_running;
 	SDL_Event		m_event;
+	ShaderProgram	m_ShaderProgram;
 
 	// OpenGL vars
 
 	GLuint			VAOs[NumVAOs];
+	GLuint			mVBO;
+	GLuint			mIBO;
 	GLuint			Buffers[NumBuffers];
 }; 

@@ -8,11 +8,11 @@ public:
 
 	ShaderProgram();
 
-	bool	Init();
+	void	Init();
 	bool	LoadShader(const char * path, GLenum type);
-	bool	LinkProgram();
-	bool	Bind();
-	bool	Unbind();
+	void	LinkProgram();
+	void	Bind();
+	void	Unbind();
 	GLuint	getProgramID() const;
 
 private:

@@ -1,7 +1,28 @@
+////////////////////////////////////////////////////////////////
+///
+///		Main application of OpenGL program.
+///		Here's what needs to be done:
+///			1. Initialize SDL
+///			2. Create Window.
+///			3. Create OpenGL Context and bind it with the window.
+///			4. Initialize GLEW (dont forget to glewExperimental = true; if you want to use modern OpenGL stuff.
+///			5. Generate and Bind VAO and VBO and pass data into it.
+///			6. Enable VSync.
+///			7. Clear color to black and swap buffers.
+///
+////////////////////////////////////////////////////////////////
+
 #include "AppMain.h"
 
 AppMain::AppMain()
-	:m_pWindow(nullptr)
+	: m_pWindow(nullptr)
+	, m_pGLContext()
+	, m_start(0)
+	, m_running(false)
+	, m_event()
+	, VAOs()
+	, Buffers()
+	, m_ShaderProgram()
 {
 }
 
@@ -14,8 +35,9 @@ bool AppMain::Init()
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 		return false;
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
@@ -23,15 +45,29 @@ bool AppMain::Init()
 	if(!m_pWindow)
 		g_sdldie("Unable to create SDL window");
 
+	// Create Context
 	m_pGLContext = SDL_GL_CreateContext(m_pWindow);
 	if (!m_pGLContext)
 		g_sdldie("Unable to create OpenGL Context");
 
-	if (!InitGL())
+	// Initialize GLEW
+	glewExperimental = GL_TRUE;
+	GLenum glewError = glewInit();
+	if (glewError != GLEW_OK)
+	{
+		g_sdldie("Error initializing GLEW! %s\n");
+		printf("%s\n", glewGetErrorString(glewError));
+	}
+		
+	// Initialize GLEW and Vertex data
+	if (!InitGL())											// InitGL
 		g_sdldie("Unable to initialize OpenGL");
 	
 	// This makes our buffer swap synchronized with monitor vertical refresh (VSync).
-	SDL_GL_SetSwapInterval(1);
+	if (SDL_GL_SetSwapInterval(1) < 0)
+	{
+		printf("Warning: Unable to set VSync. SDL Error ! : %s", SDL_GetError());
+	}
 
 	glClearColor(0.0, 0.0, 0.0, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -61,6 +97,7 @@ bool AppMain::Init()
 
 bool AppMain::InitGL()
 {
+	const int NumVertices = 1;
 
 	if (glewInit())
 	{
@@ -68,22 +105,43 @@ bool AppMain::InitGL()
 		return false;
 	}
 
-	glGenVertexArrays(NumVAOs, VAOs);
-	glBindVertexArray(VAOs[Triangles]);
+	m_ShaderProgram.Init();
 
-	GLfloat	vertices[NUM_VERTICES][2] = 
+	m_ShaderProgram.LoadShader("Assets\\Shaders\\hello_glsl.vert", GL_VERTEX_SHADER);
+	m_ShaderProgram.LoadShader("Assets\\Shaders\\hello_glsl.frag", GL_FRAGMENT_SHADER);
+
+	m_ShaderProgram.LinkProgram();
+	m_ShaderProgram.Bind();
+
+	// Careful, can cause crash on glDrawArrays
+	GLint posAttrib = glGetAttribLocation(m_ShaderProgram.getProgramID(), "position");
+	glEnableVertexAttribArray(posAttrib);
+	glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+	//VBO data 
+	GLfloat vertexData[] = 
+	{ 
+		-0.5f, -0.5f, 
+		0.5f, -0.5f, 
+		0.5f, 0.5f, 
+		-0.5f, 0.5f 
+	}; 
+	
+	//IBO data 
+	GLuint indexData[] = 
 	{
-		{ -0.90, -0.90 },
-		{  0.85, -0.90 },
-		{ -0.90,  0.85 },
-		{  0.90, -0.85 },
-		{  0.90,  0.90 },
-		{ -0.85,  0.90 }
-	};
+		0, 1, 2, 3 
+	}; 
 
-	glGenBuffers(NumBuffers, Buffers);
-	glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	// Create VBO 
+	glGenBuffers( 1, &mVBO ); 
+	glBindBuffer( GL_ARRAY_BUFFER, mVBO ); 
+	glBufferData( GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW ); 
+
+	if (glGetError() != GL_NO_ERROR)
+	{
+		printf("Could not create VBO : %s \n", gluErrorString(glGetError()));
+	}
 
 	return true;
 }
@@ -137,5 +195,4 @@ void AppMain::Events()
 {
 
 }
-
 

@@ -2,10 +2,11 @@
 
 #include <stdio.h>
 #include <SDL.h>
-#include <GL/glew.h>
+#include <GL\glew.h>
 #include <SDL_opengl.h>
+#include <GL\GLU.h>
 #include <fstream>
-#include <sstream>
+#include "ShaderProgram.h"
 
 #define BIT(x) (1<<x)
 #define SEC(x) x*1000
