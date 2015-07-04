@@ -20,7 +20,8 @@ AppMain::AppMain()
 	, m_start(0)
 	, m_running(false)
 	, m_event()
-	, VAOs()
+	, mVAOs()
+	, mVBOs()
 	, Buffers()
 	, m_ShaderProgram()
 {
@@ -36,8 +37,8 @@ bool AppMain::Init()
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 		return false;
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
@@ -85,7 +86,7 @@ bool AppMain::Init()
 	// Reset viewport position to the origin.
 	glLoadIdentity();
 
-	//gluPerspective(45.0, WINDOW_WIDTH/WINDOW_HEIGHT, 1.0, 500.0);
+	gluPerspective(45.0, WINDOW_WIDTH/WINDOW_HEIGHT, 1.0, 500.0);
 
 	// Disable depth checking (game will be 2D, so its not nescessary. In 3D it would)
 	glDisable(GL_DEPTH_TEST);
@@ -113,19 +114,23 @@ bool AppMain::InitGL()
 	m_ShaderProgram.LinkProgram();
 	m_ShaderProgram.Bind();
 
-	// Careful, can cause crash on glDrawArrays
-	GLint posAttrib = glGetAttribLocation(m_ShaderProgram.getProgramID(), "position");
-	glEnableVertexAttribArray(posAttrib);
-	glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
+	glBindAttribLocation(m_ShaderProgram.getProgramID(), 0, "vertexPosition");
+	glBindAttribLocation(m_ShaderProgram.getProgramID(), 1, "vertexColor");
 
-	//VBO data 
+	//VBO data
 	GLfloat vertexData[] = 
 	{ 
-		-0.5f, -0.5f, 
-		0.5f, -0.5f, 
-		0.5f, 0.5f, 
-		-0.5f, 0.5f 
+		-0.8f, -0.8f, 0.0f, 
+		0.8f, -0.8f, 0.0f, 
+		0.0f, 0.8f, 0.0f, 
 	}; 
+
+	GLfloat colorData[] =
+	{
+		1.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f,
+		0.0f, 0.0f, 1.0f
+	};
 	
 	//IBO data 
 	GLuint indexData[] = 
@@ -133,15 +138,52 @@ bool AppMain::InitGL()
 		0, 1, 2, 3 
 	}; 
 
-	// Create VBO 
-	glGenBuffers( 1, &mVBO ); 
-	glBindBuffer( GL_ARRAY_BUFFER, mVBO ); 
-	glBufferData( GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW ); 
+	////////////////////////////////////////////////////////////////
+	///
+	///		The correct order of initializing buffers is:
+	///		1. Vertex Array Object (VAO)
+	///		2. Vertex Buffer Object (VBO)
+	///
+	///		After that we can use functions like glVertexAttribPointer.
+	///		Without both these buffers binded to context, we would have UB.
+	///
+	////////////////////////////////////////////////////////////////
 
-	if (glGetError() != GL_NO_ERROR)
-	{
-		printf("Could not create VBO : %s \n", gluErrorString(glGetError()));
-	}
+	// Create VAO
+	glGenVertexArrays(NUM_VERTICES, mVAOs);
+	glBindVertexArray(mVAOs[0]);
+
+	// Create VBO 
+	glGenBuffers(2, mVBOs);
+
+	// After we have generated VAO and VBO we can pass data to shaders.
+	GLint posAttrib = glGetAttribLocation(m_ShaderProgram.getProgramID(), "vertexPosition");
+	GLint colAttrib = glGetAttribLocation(m_ShaderProgram.getProgramID(), "vertexColor");
+
+	// Bind vertex data with the VBO
+	glBindBuffer(GL_ARRAY_BUFFER, mVBOs[0]);
+	// Populate the position buffer with vertexData.
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
+	// Pass data to the vertexPosition variable in the vertex shader.
+	glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+	
+	// Bind color data with the VBO
+	glBindBuffer(GL_ARRAY_BUFFER, mVBOs[1]);
+	// Populate the color buffer with colorData.
+	glBufferData(GL_ARRAY_BUFFER, sizeof(colorData), colorData, GL_STATIC_DRAW);
+	// Pass data to the vertexColor variable in the vertex shader.
+	glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+
+	// Enable vertexPosition
+	glEnableVertexAttribArray(posAttrib);
+	// Enable vertexColor
+	glEnableVertexAttribArray(colAttrib);
+	
+	// Set VAO and VBO back to 0, to avoid unwanted data passing.
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	ErrorHandle("VertexAttribPointer : ");
 
 	return true;
 }
@@ -185,8 +227,9 @@ void AppMain::Render()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	glBindVertexArray(VAOs[Triangles]);
-	glDrawArrays(GL_TRIANGLES, 0, NUM_VERTICES);
+	glBindVertexArray(mVAOs[0]);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
+	glBindVertexArray(0);
 
 	glFlush();
 }
@@ -194,5 +237,40 @@ void AppMain::Render()
 void AppMain::Events()
 {
 
+}
+
+void AppMain::ErrorHandle(const char* msg)
+{
+	printf(msg);
+	switch (glGetError())
+	{
+		case GL_NO_ERROR:
+			printf("GL_NO_ERROR");
+		break;
+		case GL_INVALID_ENUM:
+			printf("GL_INVALID_ENUM");
+		break;
+		case GL_INVALID_VALUE:
+			printf("GL_INVALID_VALUE");
+		break;
+		case GL_INVALID_OPERATION:
+			printf("GL_INVALID_OPERATION");
+		break;
+		case GL_INVALID_FRAMEBUFFER_OPERATION:
+			printf("GL_INVALID_FRAMEBUFFER_OPERATION");
+		break;
+		case GL_OUT_OF_MEMORY:
+			printf("GL_OUT_OF_MEMORY");
+		break;
+		case GL_STACK_UNDERFLOW:
+			printf("GL_STACK_UNDERFLOW");
+		break;
+		case GL_STACK_OVERFLOW:
+			printf("GL_STACK_OVERFLOW");
+		break;
+		default:
+			break;
+	}
+	printf("\n");
 }
 

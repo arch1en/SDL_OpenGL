@@ -1,4 +1,5 @@
 ﻿  AppMain.cpp
-e:\_workspace\sdl_opengl\sdl_opengl\appmain.cpp(26): warning C4351: new behavior: elements of array 'AppMain::VAOs' will be default initialized
-e:\_workspace\sdl_opengl\sdl_opengl\appmain.cpp(26): warning C4351: new behavior: elements of array 'AppMain::Buffers' will be default initialized
+e:\_workspace\sdl_opengl\sdl_opengl\appmain.cpp(27): warning C4351: new behavior: elements of array 'AppMain::mVAOs' will be default initialized
+e:\_workspace\sdl_opengl\sdl_opengl\appmain.cpp(27): warning C4351: new behavior: elements of array 'AppMain::mVBOs' will be default initialized
+e:\_workspace\sdl_opengl\sdl_opengl\appmain.cpp(27): warning C4351: new behavior: elements of array 'AppMain::Buffers' will be default initialized
   SDL_OpenGL.vcxproj -> E:\_WORKSPACE\SDL_OpenGL\Debug\SDL_OpenGL.exe

@@ -11,7 +11,8 @@ public:
 	enum VAO_IDs
 	{
 		Triangles = 0,
-		NumVAOs
+		NumVAOs,
+		NumVBOs
 	};
 
 	enum Buffer_IDs
@@ -34,6 +35,7 @@ public:
 	void Update();
 	void Render();
 	void Events();
+	void ErrorHandle(const char* msg);
 	void Destroy();
 
 private:
@@ -47,8 +49,8 @@ private:
 
 	// OpenGL vars
 
-	GLuint			VAOs[NumVAOs];
-	GLuint			mVBO;
+	GLuint			mVAOs[NumVAOs];
+	GLuint			mVBOs[NumVBOs];
 	GLuint			mIBO;
 	GLuint			Buffers[NumBuffers];
 }; 

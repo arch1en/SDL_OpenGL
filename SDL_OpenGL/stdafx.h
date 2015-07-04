@@ -16,6 +16,8 @@
 
 #define EXIT_FAILURE	1
 
+#define BUFFER_OFFSET(offset) ((void*)(offset))
+
 static void g_sdldie(const char* text);
 
 inline void g_sdldie(const char* text)
