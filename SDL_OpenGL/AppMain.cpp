@@ -227,6 +227,13 @@ void AppMain::Render()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 
+	mat4 rotationMatrix = glm::rotate(mat4(1.0f), M_PI, vec3(0.f, 0.f, 1.f));
+
+	GLuint location = glGetUniformLocation(m_ShaderProgram.getProgramID(), "RotationMatrix");
+
+	if (location >= 0)
+		glUniformMatrix4fv(location, 1, GL_FALSE, &rotationMatrix[0][0]);
+
 	glBindVertexArray(mVAOs[0]);
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 	glBindVertexArray(0);

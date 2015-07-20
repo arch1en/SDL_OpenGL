@@ -13,6 +13,7 @@ public:
 	void	LinkProgram();
 	void	Bind();
 	void	Unbind();
+	void	PrintInfo();
 	GLuint	getProgramID() const;
 
 private:

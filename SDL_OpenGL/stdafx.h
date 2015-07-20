@@ -7,6 +7,11 @@
 #include <GL\GLU.h>
 #include <fstream>
 #include "ShaderProgram.h"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+
+using glm::mat4;
+using glm::vec3;
 
 #define BIT(x) (1<<x)
 #define SEC(x) x*1000

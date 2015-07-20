@@ -106,3 +106,29 @@ GLuint ShaderProgram::getProgramID() const
 {
 	return m_program;
 }
+
+void ShaderProgram::PrintInfo()
+{
+	GLint maxLength, nAttribs;
+	// Query for the number of active attributes
+	glGetProgramiv(m_program, GL_ACTIVE_ATTRIBUTES, &nAttribs);
+	// Query for length of the longest attribute name.
+	glGetProgramiv(m_program, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &maxLength);
+
+	GLchar * name = (GLchar *)malloc(maxLength);
+
+	GLint written, size, location;
+	GLenum type;
+	printf(" Index | Name\n");
+	printf("-----------------------------------------\n");
+
+	// Loop over each index and retrieve information about each attribute.
+	for (int i = 0; i < nAttribs; i++)
+	{
+		glGetActiveAttrib(m_program, i, maxLength, &written,
+			&size, &type, name);
+		location = glGetAttribLocation(m_program, name);
+		printf(" %-5d | %s\n", location, name);
+	}
+	free(name);
+}
