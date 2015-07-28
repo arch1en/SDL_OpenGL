@@ -1,14 +1,17 @@
-#version 400
+#version 150 core
 
-layout (location = 0) in vec3 vertexPosition;
-layout (location = 1) in vec3 vertexColor;
+in vec2 position;
+in vec3 color;
+in vec2 texcoord;
 
 out vec3 Color;
+out vec2 Texcoord;
 
-uniform mat4 RotationMatrix;
+//uniform mat4 trans;
 
-void main() 
-{ 
-	Color = vertexColor;
-	gl_Position = RotationMatrix * vec4(vertexPosition, 1.0);
+void main() {
+	Color = color;
+	Texcoord = texcoord;
+
+	gl_Position = /*trans **/ vec4(position, 0.0, 1.0);
 }

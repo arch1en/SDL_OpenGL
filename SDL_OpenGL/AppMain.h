@@ -1,6 +1,7 @@
 #pragma once
 
 #include "stdafx.h"
+#include "Sampler.h"
 
 #define NUM_VERTICES 1
 
@@ -51,6 +52,6 @@ private:
 
 	GLuint			mVAOs[NumVAOs];
 	GLuint			mVBOs[NumVBOs];
-	GLuint			mIBO;
+	GLuint			mEBO;
 	GLuint			Buffers[NumBuffers];
 }; 
