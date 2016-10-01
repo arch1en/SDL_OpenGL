@@ -20,7 +20,6 @@ bool ShaderProgram::LoadShader(const char * path, GLenum type)
 {
 	GLint				shaderSuccess = GL_FALSE;
 	std::fstream		shaderFile(path);
-
 	std::string			buffer(	(std::istreambuf_iterator<char>(shaderFile)),
 								std::istreambuf_iterator<char>() );
 
@@ -35,30 +34,14 @@ bool ShaderProgram::LoadShader(const char * path, GLenum type)
 		// Compile it
 		glCompileShader(m_vertexShader);
 		// Check for errors
-		glGetShaderiv(m_vertexShader, GL_COMPILE_STATUS, &shaderSuccess);
-		if (shaderSuccess != GL_TRUE)
-		{
-			char buffer[512];
-			glGetShaderInfoLog(m_vertexShader, 512, NULL, buffer);
-			printf("Vertex shader Log: \n\n%s\n", buffer);
-			SDL_LogMessage(SDL_LOG_CATEGORY_RENDER, SDL_LOG_PRIORITY_WARN, "Error, cannot compile vertex shader : %d\n", m_vertexShader);
-			return false;
-		}
+		CheckShaderStatus(m_vertexShader);
 	} 
 	else if (type == GL_FRAGMENT_SHADER && m_fragmentShader <= 0)
 	{
 		m_fragmentShader = glCreateShader(type);
 		glShaderSource(m_fragmentShader, 1, &source, NULL);
 		glCompileShader(m_fragmentShader);
-		glGetShaderiv(m_fragmentShader, GL_COMPILE_STATUS, &shaderSuccess);
-		if (shaderSuccess != GL_TRUE)
-		{
-			char buffer[512];
-			glGetShaderInfoLog(m_fragmentShader, 512, NULL, buffer);
-			printf("Fragment shader Log: \n\n%s\n", buffer);
-			SDL_LogMessage(SDL_LOG_CATEGORY_RENDER, SDL_LOG_PRIORITY_WARN, "Error, cannot compile fragment shader : %d\n", m_fragmentShader);
-			return false;
-		}
+		CheckShaderStatus(m_fragmentShader);
 	}
 	else
 	{
@@ -131,4 +114,60 @@ void ShaderProgram::PrintInfo()
 		printf(" %-5d | %s\n", location, name);
 	}
 	free(name);
+}
+
+bool ShaderProgram::CheckShaderStatus(GLuint shaderID)
+{
+	GLint shaderSuccess;
+	glGetShaderiv(shaderID, GL_COMPILE_STATUS, &shaderSuccess);
+	if (shaderSuccess != GL_TRUE)
+	{
+		GLint logLength;
+		glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &logLength);
+		GLchar * buffer = new GLchar[logLength];
+		GLsizei bufferSize;
+		glGetShaderInfoLog(shaderID, logLength, &bufferSize, buffer);
+		GLint shaderType;
+		glGetShaderiv(shaderID, GL_SHADER_TYPE, &shaderType);
+
+		std::string shaderTypeString;
+		shaderType == GL_FRAGMENT_SHADER ? shaderTypeString = "Fragment" :
+		shaderType == GL_VERTEX_SHADER ? shaderTypeString = "Vertex" :
+		shaderTypeString = "Unknown";
+
+		printf("%s shader Log: \n\n%s\n", shaderTypeString, buffer);
+		SDL_LogMessage(SDL_LOG_CATEGORY_RENDER, SDL_LOG_PRIORITY_WARN, "Error, cannot compile %s shader : %d\n", shaderTypeString, m_fragmentShader);
+
+		delete[] buffer;
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+
+}
+
+bool ShaderProgram::CheckProgramStatus(GLuint programID)
+{
+	GLint programSuccess;
+	glGetShaderiv(programID, GL_LINK_STATUS, &programSuccess);
+	if (programSuccess != GL_TRUE)
+	{
+		GLint logLength;
+		glGetProgramiv(programID, GL_INFO_LOG_LENGTH, &logLength);
+		GLchar * buffer = new GLchar[logLength];
+		GLsizei bufferSize;
+		glGetProgramInfoLog(programID, logLength, &bufferSize, buffer);
+
+		printf("Program Link Log: \n\n%s\n", buffer);
+		SDL_LogMessage(SDL_LOG_CATEGORY_RENDER, SDL_LOG_PRIORITY_WARN, "Error, cannot compile fragment shader : %d\n", m_fragmentShader);
+
+		delete[] buffer;
+		return false;
+	}
+	else
+	{
+		return true;
+	}
 }

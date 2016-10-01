@@ -1,0 +1,10 @@
+# TotalNumberOfElements must be bigger than ElementsVisibleAtTheSameTime.
+
+[Properties.Carousel]
+TotalNumberOfElements=5
+ElementsVisibleAtTheSameTime=5
+ColorOfEachElement=0xFF0000
+SizeOfEachElement=5
+
+[Properties.Submenu]
+GridSize=5
