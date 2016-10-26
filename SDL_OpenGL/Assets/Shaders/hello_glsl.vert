@@ -1,17 +1,15 @@
-#version 150 core
+#version 330 core
 
-in vec3 position;
-in vec3 color;
-//in vec2 texcoord;
+layout (location = 0) in vec3 Position;
+layout (location = 1) in vec3 Color;
 
-out vec3 Color;
-//out vec2 Texcoord;
+out vec3 vertColor;
 
-//uniform mat4 trans;
-
-void main() {
-	Color = color;
+void main() 
+{
 	//Texcoord = texcoord;
 
-	gl_Position = /*trans **/ vec4(position, 1.0);
+	vertColor = Color;
+
+	gl_Position = /*trans **/ vec4(Position, 1.0);
 }

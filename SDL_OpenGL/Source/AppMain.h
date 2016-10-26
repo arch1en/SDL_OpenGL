@@ -2,6 +2,8 @@
 
 #include "stdafx.h"
 #include "Sampler.h"
+#include "Factories\FactoryMesh.h"
+#include "Renderers\Renderer.h"
 
 #define NUM_VERTICES 1
 
@@ -32,6 +34,7 @@ public:
 
 	bool Init();
 	bool InitGL();
+	void InitializeComponents();
 	bool Loop();
 	void Update();
 	void Render();
@@ -41,17 +44,19 @@ public:
 
 private:
 
-	SDL_Window *	m_pWindow;
-	SDL_GLContext	m_pGLContext;
-	Uint32			m_start;
-	bool			m_running;
-	SDL_Event		m_event;
-	ShaderProgram	m_ShaderProgram;
+	SDL_Window *	Window;
+	SDL_GLContext	GLContext;
+	Uint32			Start;
+	bool			Running;
+	SDL_Event		Event;
+	ShaderProgram	ShaderProgram;
 
 	// OpenGL vars
 
 	GLuint			mVAOs[NumVAOs];
-	GLuint			mVBOs[NumVBOs];
-	GLuint			mEBO;
 	GLuint			Buffers[NumBuffers];
+
+	std::shared_ptr<Renderer>		mRenderer;
+	FactoryMesh						mFactoryMesh;
+
 }; 

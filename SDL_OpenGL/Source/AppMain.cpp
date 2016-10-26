@@ -15,16 +15,16 @@
 #include "AppMain.h"
 
 AppMain::AppMain()
-	: m_pWindow(nullptr)
-	, m_pGLContext()
-	, m_start(0)
-	, m_running(false)
-	, m_event()
+	: Window(nullptr)
+	, GLContext()
+	, Start(0)
+	, Running(false)
+	, Event()
 	, mVAOs()
-	, mVBOs()
-	, mEBO()
 	, Buffers()
-	, m_ShaderProgram()
+	, ShaderProgram()
+	, mRenderer(new Renderer)
+	, mFactoryMesh(mRenderer)
 {
 
 }
@@ -44,13 +44,13 @@ bool AppMain::Init()
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
-	m_pWindow = SDL_CreateWindow("SDL_OpenGL", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (int)WINDOW_WIDTH, (int)WINDOW_HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
-	if(!m_pWindow)
+	Window = SDL_CreateWindow("SDL_OpenGL", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (int)WINDOW_WIDTH, (int)WINDOW_HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+	if(!Window)
 		g_sdldie("Unable to create SDL window");
 
 	// Create Context
-	m_pGLContext = SDL_GL_CreateContext(m_pWindow);
-	if (!m_pGLContext)
+	GLContext = SDL_GL_CreateContext(Window);
+	if (!GLContext)
 		g_sdldie("Unable to create OpenGL Context");
 
 	// Initialize GLEW
@@ -75,7 +75,7 @@ bool AppMain::Init()
 	glClearColor(0.0, 0.0, 0.0, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClear(GL_DEPTH_BUFFER_BIT);
-	SDL_GL_SwapWindow(m_pWindow);
+	SDL_GL_SwapWindow(Window);
 
 	// Set the area to view in frustum.
 	glViewport(0, 0, 640, 480);
@@ -94,13 +94,16 @@ bool AppMain::Init()
 	// Disable depth checking (game will be 2D, so its not nescessary. In 3D it would)
 	//glDisable(GL_DEPTH_TEST);
 
-	m_running = true;
+	Running = true;
 
 	return true;
 }
 
 bool AppMain::InitGL()
 {
+	mFactoryMesh.Initialize();
+
+	DebugTimer::GetInstance().Start();
 	const int NumVertices = 1;
 
 	if (glewInit())
@@ -111,23 +114,24 @@ bool AppMain::InitGL()
 
 	glEnable(GL_DEPTH_TEST);
 
-	m_ShaderProgram.Init();
+	ShaderProgram.Init();
 
-	m_ShaderProgram.LoadShader("Assets\\Shaders\\hello_glsl.vert", GL_VERTEX_SHADER);
-	m_ShaderProgram.LoadShader("Assets\\Shaders\\hello_glsl.frag", GL_FRAGMENT_SHADER);
+	ShaderProgram.LoadShader("Assets\\Shaders\\hello_glsl.vert", GL_VERTEX_SHADER);
+	ShaderProgram.LoadShader("Assets\\Shaders\\hello_glsl.frag", GL_FRAGMENT_SHADER);
 
-	m_ShaderProgram.LinkProgram();
-	m_ShaderProgram.Bind();
+	ShaderProgram.LinkProgram();
+	ShaderProgram.CheckProgramStatus();
 
-	glBindAttribLocation(m_ShaderProgram.getProgramID(), 0, "vertexPosition");
-	glBindAttribLocation(m_ShaderProgram.getProgramID(), 1, "vertexColor");
-	glBindFragDataLocation(m_ShaderProgram.getProgramID(), 0, "outColor");
+	glBindAttribLocation(ShaderProgram.getProgramID(), 0, "vertexPosition");
+	glBindAttribLocation(ShaderProgram.getProgramID(), 1, "vertexColor");
+	glBindFragDataLocation(ShaderProgram.getProgramID(), 0, "outColor");
 	//VBO data
 	struct Vertex
 	{
 		float x, y, z;
 		float r, g, b;
 	};
+
 
 	Vertex triangle[] =
 	{
@@ -160,65 +164,65 @@ bool AppMain::InitGL()
 	glGenVertexArrays(NUM_VERTICES, mVAOs);
 	glBindVertexArray(mVAOs[0]);
 
-	// Create VBO 
-	glGenBuffers(1, mVBOs);
-	// Bind vertex data with the VBO
-	glBindBuffer(GL_ARRAY_BUFFER, mVBOs[0]);
-	// Allocate memory and populate the position buffer with vertexData.
-	glBufferData(GL_ARRAY_BUFFER, sizeof(triangle), triangle, GL_STATIC_DRAW);
-	ErrorHandle("VertexBufferObject (VBO) : ");
+	mFactoryMesh.NewMesh(MeshType::EMT_PrimitiveTriangle);
 
-	// Create EBO
-	glGenBuffers(1, &mEBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indexData), indexData, GL_STATIC_DRAW);
-	ErrorHandle("ElementBufferObject (EBO) : ");
+	// Create VBO 
+	//glGenBuffers(1, mVBOs);
+	// Bind vertex data with the VBO
+	//glBindBuffer(GL_ARRAY_BUFFER, mVBOs[0]);
+	// Allocate memory and populate the position buffer with vertexData.
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(triangle), triangle, GL_STATIC_DRAW);
+	//ErrorHandle("VertexBufferObject (VBO) : ");
 
 	// After we have generated VAO and VBO we can pass data to vertex shader.
-	GLint posAttrib = glGetAttribLocation(m_ShaderProgram.getProgramID(), "position");
 	// Enable vertexPosition
-	glEnableVertexAttribArray(posAttrib);
+	//glEnableVertexAttribArray(posAttrib);
 	// Pass data to the vertexPosition variable in the vertex shader.
 	//glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
-	glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), 0);
+	//glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), 0);
 
-	GLint colAttrib = glGetAttribLocation(m_ShaderProgram.getProgramID(), "color");
-	glEnableVertexAttribArray(colAttrib);
+	//GLint colAttrib = glGetAttribLocation(ShaderProgram.getProgramID(), "color");
+	//glEnableVertexAttribArray(colAttrib);
 	//glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
-	glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (char*)(3 * sizeof(GLfloat)));
+	//glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (char*)(3 * sizeof(GLfloat)));
 
-	//GLint texAttrib = glGetAttribLocation(m_ShaderProgram.getProgramID(), "texcoord");
+	//GLint texAttrib = glGetAttribLocation(ShaderProgram.getProgramID(), "texcoord");
 	//glEnableVertexAttribArray(texAttrib);
 	//glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), (void*)(5 * sizeof(GLfloat)));
 
 	// Set VAO and VBO back to 0, to avoid unwanted data passing.
-	glBindVertexArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	//glBindVertexArray(0);
+	//glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	ErrorHandle("VertexAttribPointer : ");
-	
+
+
 	return true;
+}
+
+void AppMain::InitializeComponents()
+{
 }
 
 bool AppMain::Loop() 
 {
-	while (m_running)
+	while (Running)
 	{
-		m_start = SDL_GetTicks();
- 		while (SDL_PollEvent(&m_event))
+		Start = SDL_GetTicks();
+ 		while (SDL_PollEvent(&Event))
 		{
-			switch (m_event.type)
+			switch (Event.type)
 			{
 				case SDL_QUIT:
 				{
-					m_running = false;
+					Running = false;
 					break;
 				}
 			}
 		}
 		Update();
 		Render();
-		SDL_GL_SwapWindow(m_pWindow);
+		SDL_GL_SwapWindow(Window);
 	}
 	return true;
 }
@@ -234,12 +238,15 @@ void AppMain::Render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Last binded vertex array will be drawn by OpenGL, thus we will bind VAO
-	glBindVertexArray(mVAOs[0]);
-	glBindBuffer(GL_ARRAY_BUFFER, mVBOs[0]);
+	//glBindVertexArray();
 
 	//glDrawArrays(GL_TRIANGLES, 0, 3);
-	glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0); // count = number of elements = number of vertices.
+	//glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0); // count = number of elements = number of vertices.
 	//glBindVertexArray(0);
+	ShaderProgram.Bind();
+	glBindVertexArray(mVAOs[0]);
+	mRenderer->DrawMeshes();
+	glBindVertexArray(0);
 
 	glFlush();
 }
@@ -286,11 +293,9 @@ void AppMain::ErrorHandle(const char* msg)
 
 void AppMain::Destroy()
 {
-	SDL_GL_DeleteContext(m_pGLContext);
-	SDL_DestroyWindow(m_pWindow);
+	SDL_GL_DeleteContext(GLContext);
+	SDL_DestroyWindow(Window);
 	SDL_Quit();
-	glDeleteBuffers(1, &mEBO);
-
 
 }
 

@@ -1,27 +1,42 @@
 #pragma once
 
-#include <stdio.h>
+// *** SDL and OpenGL
 #include <SDL.h>
 #include <GL\glew.h>
 #include <SDL_opengl.h>
 #include <GL\GLU.h>
-#include <fstream>
-#include "ShaderProgram.h"
+
+// *** Mathematics ***
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+#include "Math/Math.h"
+
+// *** Standard Template Libraries ***
+#include <stdio.h>
+#include <fstream>
+#include <vector>		// Vector container
+#include <memory>		// Smart pointers, smaller datatypes (uint8_t)
+
+// *** Project Classes ***
+#include "ShaderProgram.h"
+#include "Debuggers/DebugTimer.h"
 
 using glm::mat4;
 using glm::vec3;
 
+#ifndef __FUNCTION__ 
+#define __FUNCTION__ __func__
+#endif
+
 #define BIT(x) (1<<x)
 #define SEC(x) x*1000
 
-#define WINDOW_WIDTH	640.0
-#define WINDOW_HEIGHT	480.0
+#define WINDOW_WIDTH	1280.0	
+#define WINDOW_HEIGHT	720.0	
 
 #define EXIT_FAILURE	1
 
-#define BUFFER_OFFSET(offset) ((void*)(offset))
+#define BUFFER_OFFSET(offset) ((GLvoid*)(offset))
 
 static void g_sdldie(const char* text);
 

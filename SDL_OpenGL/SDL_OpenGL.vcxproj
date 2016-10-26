@@ -10,6 +10,45 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Allocators\AllocatorGPU.cpp" />
+    <ClCompile Include="Source\AppMain.cpp" />
+    <ClCompile Include="Source\Debuggers\Debugger.cpp" />
+    <ClCompile Include="Source\Debuggers\DebugTimer.cpp" />
+    <ClCompile Include="Source\Factories\FactoryMesh.cpp" />
+    <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\Managers\ManagerDebugging.cpp" />
+    <ClCompile Include="Source\Math\Math.cpp" />
+    <ClCompile Include="Source\Mesh\MeshTriangle.cpp" />
+    <ClCompile Include="Source\Mesh\MeshBase.cpp" />
+    <ClCompile Include="Source\Mesh\MeshCube.cpp" />
+    <ClCompile Include="Source\Mesh\MeshPlane.cpp" />
+    <ClCompile Include="Source\Renderers\Renderer.cpp" />
+    <ClCompile Include="Source\ShaderProgram.cpp" />
+    <ClCompile Include="Source\stdafx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Allocators\AllocatorGPU.h" />
+    <ClInclude Include="Source\AppMain.h" />
+    <ClInclude Include="Source\Debuggers\Debugger.h" />
+    <ClInclude Include="Source\Debuggers\DebugTimer.h" />
+    <ClInclude Include="Source\Factories\FactoryMesh.h" />
+    <ClInclude Include="Source\Managers\ManagerDebugging.h" />
+    <ClInclude Include="Source\Math\Math.h" />
+    <ClInclude Include="Source\Mesh\MeshTriangle.h" />
+    <ClInclude Include="Source\Mesh\MeshBase.h" />
+    <ClInclude Include="Source\Mesh\MeshCube.h" />
+    <ClInclude Include="Source\Mesh\MeshPlane.h" />
+    <ClInclude Include="Source\Renderers\Renderer.h" />
+    <ClInclude Include="Source\Sampler.h" />
+    <ClInclude Include="Source\ShaderProgram.h" />
+    <ClInclude Include="Source\stdafx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Shaders\hello_glsl.frag" />
+    <None Include="Assets\Shaders\hello_glsl.vert" />
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E87EF92D-2C1E-4F5C-A179-7143563FED47}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -53,7 +92,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)Externals\SDL2_mixer-2.0.0\include;$(ProjectDir)Externals\SDL2_image-2.0.0\include;$(ProjectDir)Externals\SDL\include;$(ProjectDir)Externals\glew-1.12.0\include;$(ProjectDir)Externals\glm;$(ProjectDir)Externals\SOIL\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Source;$(StlIncludeDirectories);..\SDL_OpenGL;Source\Factories;$(ProjectDir)Externals\SDL2_mixer-2.0.0\include;$(ProjectDir)Externals\SDL2_image-2.0.0\include;$(ProjectDir)Externals\SDL\include;$(ProjectDir)Externals\glew-1.12.0\include;$(ProjectDir)Externals\glm;$(ProjectDir)Externals\SOIL\src;$(ProjectDir)Externals\boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -72,7 +111,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)Externals\SDL2_mixer-2.0.0\include;$(ProjectDir)Externals\SDL2_image-2.0.0\include;$(ProjectDir)Externals\SDL\include;$(ProjectDir)Externals\glew-1.12.0\include;$(ProjectDir)Externals\glm;$(ProjectDir)Externals\SOIL\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Source;$(StlIncludeDirectories);..\SDL_OpenGL;Source\Factories;$(ProjectDir)Externals\SDL2_mixer-2.0.0\include;$(ProjectDir)Externals\SDL2_image-2.0.0\include;$(ProjectDir)Externals\SDL\include;$(ProjectDir)Externals\glew-1.12.0\include;$(ProjectDir)Externals\glm;$(ProjectDir)Externals\SOIL\src;$(ProjectDir)Externals\boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -83,23 +122,6 @@
       <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2test.lib;SDL2_image.lib;SDL2_mixer.lib;SOIL.lib;opengl32.lib;glew32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="AppMain.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Sampler.cpp" />
-    <ClCompile Include="ShaderProgram.cpp" />
-    <ClCompile Include="stdafx.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="AppMain.h" />
-    <ClInclude Include="Sampler.h" />
-    <ClInclude Include="ShaderProgram.h" />
-    <ClInclude Include="stdafx.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\Shaders\hello_glsl.frag" />
-    <None Include="Assets\Shaders\hello_glsl.vert" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

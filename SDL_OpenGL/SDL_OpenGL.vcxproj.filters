@@ -1,56 +1,138 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="Source">
+      <UniqueIdentifier>{0525cfef-688e-4995-9b5a-ccc2d7819984}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    <Filter Include="Source\Factories">
+      <UniqueIdentifier>{a12586ad-5964-4605-883a-4b764aceb09c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Assets\Shaders">
+      <UniqueIdentifier>{cf1b9e40-ea41-45c2-bc52-351cb4e922c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{a360c605-927a-42ba-bb46-7deea9af9bad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Meshes">
+      <UniqueIdentifier>{ec9e2df8-a121-4ded-ba0d-62421590190a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Math">
+      <UniqueIdentifier>{51d64104-19e3-4c0d-b9a3-0c6abf8df304}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Managers">
+      <UniqueIdentifier>{c0d8cf9f-b8a5-46f2-911c-128b00708691}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Allocators">
+      <UniqueIdentifier>{db472e08-b510-45e1-8173-afbb6b029090}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Renderers">
+      <UniqueIdentifier>{8b097015-a78c-4804-ab39-0d77df0e82d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Debuggers">
+      <UniqueIdentifier>{d1bef740-6dd1-4613-b005-d44735770613}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\AppMain.cpp">
+      <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="AppMain.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Main.cpp">
+      <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\ShaderProgram.cpp">
+      <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderProgram.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\stdafx.cpp">
+      <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Sampler.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Factories\FactoryMesh.cpp">
+      <Filter>Source\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Mesh\MeshBase.cpp">
+      <Filter>Source\Meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Mesh\MeshCube.cpp">
+      <Filter>Source\Meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Mesh\MeshPlane.cpp">
+      <Filter>Source\Meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Managers\ManagerDebugging.cpp">
+      <Filter>Source\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Mesh\MeshTriangle.cpp">
+      <Filter>Source\Meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Allocators\AllocatorGPU.cpp">
+      <Filter>Source\Allocators</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Renderers\Renderer.cpp">
+      <Filter>Source\Renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Math\Math.cpp">
+      <Filter>Source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Debuggers\DebugTimer.cpp">
+      <Filter>Source\Debuggers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Debuggers\Debugger.cpp">
+      <Filter>Source\Debuggers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AppMain.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\AppMain.h">
+      <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="Source\Sampler.h">
+      <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderProgram.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\ShaderProgram.h">
+      <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Sampler.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\stdafx.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Factories\FactoryMesh.h">
+      <Filter>Source\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Mesh\MeshBase.h">
+      <Filter>Source\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Mesh\MeshCube.h">
+      <Filter>Source\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Mesh\MeshPlane.h">
+      <Filter>Source\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Managers\ManagerDebugging.h">
+      <Filter>Source\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Mesh\MeshTriangle.h">
+      <Filter>Source\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Allocators\AllocatorGPU.h">
+      <Filter>Source\Allocators</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Renderers\Renderer.h">
+      <Filter>Source\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Math\Math.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Debuggers\DebugTimer.h">
+      <Filter>Source\Debuggers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Debuggers\Debugger.h">
+      <Filter>Source\Debuggers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\hello_glsl.frag">
-      <Filter>Resource Files</Filter>
+      <Filter>Assets\Shaders</Filter>
     </None>
     <None Include="Assets\Shaders\hello_glsl.vert">
-      <Filter>Resource Files</Filter>
+      <Filter>Assets\Shaders</Filter>
     </None>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

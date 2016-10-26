@@ -148,17 +148,17 @@ bool ShaderProgram::CheckShaderStatus(GLuint shaderID)
 
 }
 
-bool ShaderProgram::CheckProgramStatus(GLuint programID)
+bool ShaderProgram::CheckProgramStatus()
 {
 	GLint programSuccess;
-	glGetShaderiv(programID, GL_LINK_STATUS, &programSuccess);
+	glGetProgramiv(m_program, GL_LINK_STATUS, &programSuccess);
 	if (programSuccess != GL_TRUE)
 	{
 		GLint logLength;
-		glGetProgramiv(programID, GL_INFO_LOG_LENGTH, &logLength);
+		glGetProgramiv(m_program, GL_INFO_LOG_LENGTH, &logLength);
 		GLchar * buffer = new GLchar[logLength];
 		GLsizei bufferSize;
-		glGetProgramInfoLog(programID, logLength, &bufferSize, buffer);
+		glGetProgramInfoLog(m_program, logLength, &bufferSize, buffer);
 
 		printf("Program Link Log: \n\n%s\n", buffer);
 		SDL_LogMessage(SDL_LOG_CATEGORY_RENDER, SDL_LOG_PRIORITY_WARN, "Error, cannot compile fragment shader : %d\n", m_fragmentShader);

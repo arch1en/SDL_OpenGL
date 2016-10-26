@@ -16,11 +16,12 @@ public:
 	void	PrintInfo();
 	GLuint	getProgramID() const;
 
+	bool		CheckProgramStatus();
+	bool		CheckShaderStatus(GLuint shaderID);
+
 private:
 
 	GLuint		m_program;
 	GLuint		m_vertexShader;
 	GLuint		m_fragmentShader;
-	bool		CheckShaderStatus(GLuint shaderID);
-	bool		CheckProgramStatus(GLuint programID);
 };
