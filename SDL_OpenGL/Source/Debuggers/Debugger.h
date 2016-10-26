@@ -16,7 +16,7 @@ enum class DebugType : uint8_t
 class Debugger
 {
 public:
-	Debugger() {}
+	Debugger();
 
 	// "= delete" - C++11. Prevents compiler from generating these functions.
 	Debugger(const Debugger&) = delete;
@@ -25,5 +25,13 @@ public:
 	static Debugger& GetInstance();
 
 	void Debugger::Log_(const char* InFilePath, int InLineNumber, DebugType InDebugType, const char* InMessage, ...);
+
+private:
+
+#ifdef PLATFORM_WINDOWS
+	HANDLE hConsole;
+	int Background = 0;
+	int DefaultConsoleColor = 15 + 0 * 16;
+#endif
 
 };

@@ -3,6 +3,13 @@
 
 #include <string>
 
+Debugger::Debugger()
+{
+#ifdef PLATFORM_WINDOWS
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+#endif
+}
+
 Debugger& Debugger::GetInstance()
 {
 	static Debugger Singleton;
@@ -15,21 +22,47 @@ void Debugger::Log_(const char* InFilePath, int InLineNumber, DebugType InDebugT
 	va_start(Arguments, InMessage);
 
 	const char* DebugTypeString;
+#ifdef PLATFORM_WINDOWS
+	int Foreground = 15;
+#endif
 
 	if (InDebugType == DebugType::EDT_Notice)
 	{
+#ifdef PLATFORM_WINDOWS
+		int Color = Foreground + Background * 16;
+		
+		SetConsoleTextAttribute(hConsole, Color);
+#endif
 		DebugTypeString = "Notice";
 	}
 	else if (InDebugType == DebugType::EDT_Warning)
 	{
+#ifdef PLATFORM_WINDOWS
+		Foreground = 14;
+		int Color = Foreground + Background * 16;
+		
+		SetConsoleTextAttribute(hConsole, Color);
+#endif
 		DebugTypeString = "Warning";
 	}
 	else if (InDebugType == DebugType::EDT_Error)
 	{
+#ifdef PLATFORM_WINDOWS
+		Foreground = 12;
+		int Color = Foreground + Background * 16;
+		
+		SetConsoleTextAttribute(hConsole, Color);
+#endif
 		DebugTypeString = "Error";
 	}
 	else if (InDebugType == DebugType::EDT_Fatal)
 	{
+#ifdef PLATFORM_WINDOWS
+		Foreground = 12;
+		int Color = Foreground + Background * 16;
+		
+		SetConsoleTextAttribute(hConsole, Color);
+#endif
 		DebugTypeString = "Fatal";
 	}
 	else
@@ -76,6 +109,7 @@ void Debugger::Log_(const char* InFilePath, int InLineNumber, DebugType InDebugT
 		InMessage++;
 
 	}
+
 	if (InDebugType < DebugType::EDT_Error)
 	{
 		printf("%s : %s\n", DebugTypeString, String.c_str());
@@ -84,4 +118,10 @@ void Debugger::Log_(const char* InFilePath, int InLineNumber, DebugType InDebugT
 	{
 		printf("%s : %s | In %s Line (%i)\n", DebugTypeString, String.c_str(), InFilePath, InLineNumber);
 	}
+#ifdef PLATFORM_WINDOWS
+	if (Foreground != 15)
+	{
+		SetConsoleTextAttribute(hConsole, DefaultConsoleColor);
+	}
+#endif
 }
