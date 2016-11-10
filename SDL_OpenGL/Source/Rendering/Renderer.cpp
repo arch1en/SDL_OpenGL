@@ -23,5 +23,7 @@ void Renderer::DrawMeshes()
 		assert(iter != nullptr);
 		//glDrawArrays(DrawingMode, 0, 3);
 		glDrawElements(DrawingMode, ParametersInOneVector, GL_UNSIGNED_INT, 0);// &iter->mPolygonData.Elements[0]);
+		// TODO [High] : Handle VAO Binding !
+
 	}
 }

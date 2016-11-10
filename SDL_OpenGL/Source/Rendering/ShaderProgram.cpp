@@ -75,7 +75,6 @@ void ShaderProgram::Bind()
 	if (error != GL_NO_ERROR)
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Error binding program ! %s\n");
-		//SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Error binding program ! %s\n", gluErrorString(error));
 	}
 
 }

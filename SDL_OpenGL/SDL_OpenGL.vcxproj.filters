@@ -25,11 +25,26 @@
     <Filter Include="Source\Allocators">
       <UniqueIdentifier>{db472e08-b510-45e1-8173-afbb6b029090}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Renderers">
-      <UniqueIdentifier>{8b097015-a78c-4804-ab39-0d77df0e82d5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Debuggers">
       <UniqueIdentifier>{d1bef740-6dd1-4613-b005-d44735770613}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\IO">
+      <UniqueIdentifier>{c1265674-d5cc-4b85-9967-35048c68c15d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene">
+      <UniqueIdentifier>{6266ec71-657e-470d-803d-77ba2260717e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Rendering">
+      <UniqueIdentifier>{8b097015-a78c-4804-ab39-0d77df0e82d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Interfaces">
+      <UniqueIdentifier>{69878e2e-ab78-4c1e-aea9-91e6fb9e5b99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components">
+      <UniqueIdentifier>{d5d834c5-d66f-4be8-9682-45b2fc055ecc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Core">
+      <UniqueIdentifier>{ca6b8d3b-aa49-4b49-a127-b5c5ad49a271}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -37,9 +52,6 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\Main.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ShaderProgram.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\stdafx.cpp">
@@ -54,20 +66,11 @@
     <ClCompile Include="Source\Mesh\MeshCube.cpp">
       <Filter>Source\Meshes</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Mesh\MeshPlane.cpp">
-      <Filter>Source\Meshes</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Managers\ManagerDebugging.cpp">
-      <Filter>Source\Managers</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Mesh\MeshTriangle.cpp">
       <Filter>Source\Meshes</Filter>
     </ClCompile>
     <ClCompile Include="Source\Allocators\AllocatorGPU.cpp">
       <Filter>Source\Allocators</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Renderers\Renderer.cpp">
-      <Filter>Source\Renderers</Filter>
     </ClCompile>
     <ClCompile Include="Source\Math\Math.cpp">
       <Filter>Source\Math</Filter>
@@ -78,15 +81,48 @@
     <ClCompile Include="Source\Debuggers\Debugger.cpp">
       <Filter>Source\Debuggers</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scene\Camera.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\IO\Paths.cpp">
+      <Filter>Source\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\IO\ConfigLoader.cpp">
+      <Filter>Source\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\Renderer.cpp">
+      <Filter>Source\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\ShaderProgram.cpp">
+      <Filter>Source\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Managers\InputManager.cpp">
+      <Filter>Source\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\IO\KeyboardInputLayer.cpp">
+      <Filter>Source\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\IO\MouseInputLayer.cpp">
+      <Filter>Source\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\IO\InputLayer.cpp">
+      <Filter>Source\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Interfaces\IObserver.cpp">
+      <Filter>Source\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\InputComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Core\Class.cpp">
+      <Filter>Source\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AppMain.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\Sampler.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ShaderProgram.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\stdafx.h">
@@ -101,20 +137,11 @@
     <ClInclude Include="Source\Mesh\MeshCube.h">
       <Filter>Source\Meshes</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Mesh\MeshPlane.h">
-      <Filter>Source\Meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Managers\ManagerDebugging.h">
-      <Filter>Source\Managers</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Mesh\MeshTriangle.h">
       <Filter>Source\Meshes</Filter>
     </ClInclude>
     <ClInclude Include="Source\Allocators\AllocatorGPU.h">
       <Filter>Source\Allocators</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Renderers\Renderer.h">
-      <Filter>Source\Renderers</Filter>
     </ClInclude>
     <ClInclude Include="Source\Math\Math.h">
       <Filter>Source\Math</Filter>
@@ -124,6 +151,45 @@
     </ClInclude>
     <ClInclude Include="Source\Debuggers\Debugger.h">
       <Filter>Source\Debuggers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\Camera.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\IO\Paths.h">
+      <Filter>Source\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Helpers.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\IO\ConfigLoader.h">
+      <Filter>Source\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rendering\Renderer.h">
+      <Filter>Source\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rendering\ShaderProgram.h">
+      <Filter>Source\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Managers\InputManager.h">
+      <Filter>Source\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\IO\KeyboardInputLayer.h">
+      <Filter>Source\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\IO\MouseInputLayer.h">
+      <Filter>Source\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\IO\InputLayer.h">
+      <Filter>Source\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Interfaces\IObserver.h">
+      <Filter>Source\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\InputComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\Class.h">
+      <Filter>Source\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

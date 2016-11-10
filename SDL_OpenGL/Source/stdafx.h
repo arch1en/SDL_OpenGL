@@ -18,8 +18,8 @@
 #include <memory>		// Smart pointers, smaller datatypes (uint8_t)
 
 // *** Project Classes ***
-#include "ShaderProgram.h"
 #include "Debuggers/DebugTimer.h"
+#include "Debuggers/Debugger.h"
 
 using glm::mat4;
 using glm::vec3;
@@ -37,6 +37,16 @@ using glm::vec3;
 #define EXIT_FAILURE	1
 
 #define BUFFER_OFFSET(offset) ((GLvoid*)(offset))
+
+// *** PLATFORM DEFINES ***
+
+#define PLATFORM_WINDOWS
+//#define PLATFORM_UNIX
+//#define PLATFORM_MACOS
+//#define PLATROFM_ANDROID
+//#define PLATFORM_IOS
+
+// ~~~ PLATFORM DEFINES ~~~
 
 static void g_sdldie(const char* text);
 

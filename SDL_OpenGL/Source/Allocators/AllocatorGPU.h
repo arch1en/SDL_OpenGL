@@ -24,7 +24,6 @@ class AllocatorGPU
 {
 public:
 
-	AllocatorGPU();
 	void Initialize();
 	~AllocatorGPU();
 

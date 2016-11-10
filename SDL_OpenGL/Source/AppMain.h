@@ -3,9 +3,10 @@
 #include "stdafx.h"
 #include "Sampler.h"
 #include "Factories\FactoryMesh.h"
-#include "Renderers\Renderer.h"
-
-#define NUM_VERTICES 1
+#include "Rendering\Renderer.h"
+#include "Rendering\ShaderProgram.h"
+#include "Managers\InputManager.h"
+#include "Scene\Camera.h"
 
 class AppMain
 {
@@ -51,10 +52,10 @@ private:
 	SDL_Event		Event;
 	ShaderProgram	ShaderProgram;
 
-	// OpenGL vars
+	InputManager	mInputManager;
+	Camera			mMainCamera;
 
-	GLuint			mVAOs[NumVAOs];
-	GLuint			Buffers[NumBuffers];
+	// OpenGL vars
 
 	std::shared_ptr<Renderer>		mRenderer;
 	FactoryMesh						mFactoryMesh;

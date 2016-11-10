@@ -23,7 +23,6 @@ public:
 	double Check();
 
 	void ShowResult();
-	//void printftime(const char *, ...); // TODO: Implement
 
 private:
 

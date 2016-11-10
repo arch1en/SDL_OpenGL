@@ -22,47 +22,25 @@ void Debugger::Log_(const char* InFilePath, int InLineNumber, DebugType InDebugT
 	va_start(Arguments, InMessage);
 
 	const char* DebugTypeString;
-#ifdef PLATFORM_WINDOWS
-	int Foreground = 15;
-#endif
 
 	if (InDebugType == DebugType::EDT_Notice)
 	{
-#ifdef PLATFORM_WINDOWS
-		int Color = Foreground + Background * 16;
-		
-		SetConsoleTextAttribute(hConsole, Color);
-#endif
+		SetMessageColor();
 		DebugTypeString = "Notice";
 	}
 	else if (InDebugType == DebugType::EDT_Warning)
 	{
-#ifdef PLATFORM_WINDOWS
-		Foreground = 14;
-		int Color = Foreground + Background * 16;
-		
-		SetConsoleTextAttribute(hConsole, Color);
-#endif
+		SetMessageColor(14);
 		DebugTypeString = "Warning";
 	}
 	else if (InDebugType == DebugType::EDT_Error)
 	{
-#ifdef PLATFORM_WINDOWS
-		Foreground = 12;
-		int Color = Foreground + Background * 16;
-		
-		SetConsoleTextAttribute(hConsole, Color);
-#endif
+		SetMessageColor(12);
 		DebugTypeString = "Error";
 	}
 	else if (InDebugType == DebugType::EDT_Fatal)
 	{
-#ifdef PLATFORM_WINDOWS
-		Foreground = 12;
-		int Color = Foreground + Background * 16;
-		
-		SetConsoleTextAttribute(hConsole, Color);
-#endif
+		SetMessageColor(12);
 		DebugTypeString = "Fatal";
 	}
 	else
@@ -74,8 +52,6 @@ void Debugger::Log_(const char* InFilePath, int InLineNumber, DebugType InDebugT
 
 	while (*InMessage != '\0')
 	{
-		const char* test = InMessage + 1;
-
 		if (*InMessage == '/')
 		{
 			String += *(InMessage + 1);
@@ -114,14 +90,31 @@ void Debugger::Log_(const char* InFilePath, int InLineNumber, DebugType InDebugT
 	{
 		printf("%s : %s\n", DebugTypeString, String.c_str());
 	}
+	else if (InDebugType > DebugType::EDT_Notice)
+	{
+		SetMessageColor();
+	}
 	else
 	{
 		printf("%s : %s | In %s Line (%i)\n", DebugTypeString, String.c_str(), InFilePath, InLineNumber);
 	}
+}
+
+void Debugger::CreateLogFile()
+{
+	// TODO : Implement log file creating according to DebuggingProperties.ini file.
+}
+
+void Debugger::SaveLogToFile()
+{
+	// TODO : Implement log file creating according to DebuggingProperties.ini file.
+}
+
+void Debugger::SetMessageColor(int InForeground, int InBackground)
+{
 #ifdef PLATFORM_WINDOWS
-	if (Foreground != 15)
-	{
-		SetConsoleTextAttribute(hConsole, DefaultConsoleColor);
-	}
+	int Color = InForeground + InBackground * 16;
+
+	SetConsoleTextAttribute(hConsole, Color);
 #endif
 }

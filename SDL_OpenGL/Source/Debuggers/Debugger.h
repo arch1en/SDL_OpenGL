@@ -34,4 +34,15 @@ private:
 	int DefaultConsoleColor = 15 + 0 * 16;
 #endif
 
+	void CreateLogFile();
+	void SaveLogToFile();
+	
+	/**
+	*   Changes text color on the console. Platform specific.
+	*
+	*   @param  InForeground    : Sets foreground color of a text (default 15 = White).
+	*   @param  InBackground    : Sets background color of a text (default 0 = Black).
+	*
+	*/
+	void SetMessageColor(int InForeground = 15, int InBackground = 0);
 };

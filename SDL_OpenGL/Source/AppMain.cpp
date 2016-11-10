@@ -13,20 +13,23 @@
 ////////////////////////////////////////////////////////////////
 
 #include "AppMain.h"
-
+#include "IO/Paths.h"
+// TEST
+#include "IO/ConfigLoader.h"
+// ~TEST
 AppMain::AppMain()
 	: Window(nullptr)
 	, GLContext()
 	, Start(0)
 	, Running(false)
 	, Event()
-	, mVAOs()
-	, Buffers()
 	, ShaderProgram()
 	, mRenderer(new Renderer)
 	, mFactoryMesh(mRenderer)
+	, mInputManager()
+	, mMainCamera()
 {
-
+	mInputManager.Bind(&static_cast<IObserver>(mMainCamera.mInputComponent));
 }
 
 AppMain::~AppMain()
@@ -101,10 +104,6 @@ bool AppMain::Init()
 
 bool AppMain::InitGL()
 {
-	mFactoryMesh.Initialize();
-
-	DebugTimer::GetInstance().Start();
-	const int NumVertices = 1;
 
 	if (glewInit())
 	{
@@ -114,6 +113,8 @@ bool AppMain::InitGL()
 
 	glEnable(GL_DEPTH_TEST);
 
+	mFactoryMesh.Initialize();
+
 	ShaderProgram.Init();
 
 	ShaderProgram.LoadShader("Assets\\Shaders\\hello_glsl.vert", GL_VERTEX_SHADER);
@@ -121,33 +122,6 @@ bool AppMain::InitGL()
 
 	ShaderProgram.LinkProgram();
 	ShaderProgram.CheckProgramStatus();
-
-	glBindAttribLocation(ShaderProgram.getProgramID(), 0, "vertexPosition");
-	glBindAttribLocation(ShaderProgram.getProgramID(), 1, "vertexColor");
-	glBindFragDataLocation(ShaderProgram.getProgramID(), 0, "outColor");
-	//VBO data
-	struct Vertex
-	{
-		float x, y, z;
-		float r, g, b;
-	};
-
-
-	Vertex triangle[] =
-	{
-		// Position			Color
-		+0.0f, +1.0f, +0.0f, +1.0f, +0.0f, +0.0f,
-		-1.0f, -1.0f, +0.0f, +0.0f, +1.0f, +0.0f,
-		+1.0f, -1.0f, +0.0f, +0.0f, +0.0f, +1.0f,
-	};
-
-	// Texture test vertices
-	
-	// EBO data 
-	GLuint indexData[] = 
-	{
-		0, 1, 2,
-	}; 
 
 	////////////////////////////////////////////////////////////////
 	///
@@ -160,42 +134,16 @@ bool AppMain::InitGL()
 	///
 	////////////////////////////////////////////////////////////////
 
-	// Create VAO
-	glGenVertexArrays(NUM_VERTICES, mVAOs);
-	glBindVertexArray(mVAOs[0]);
+	// TEST
+	std::map<std::string, std::string> test;
+	ConfigLoader Loader;
+
+	Loader.LoadConfigData("InputProperties", "Scene.Keyboard.Input", test);
+	// ~TEST
 
 	mFactoryMesh.NewMesh(MeshType::EMT_PrimitiveTriangle);
 
-	// Create VBO 
-	//glGenBuffers(1, mVBOs);
-	// Bind vertex data with the VBO
-	//glBindBuffer(GL_ARRAY_BUFFER, mVBOs[0]);
-	// Allocate memory and populate the position buffer with vertexData.
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(triangle), triangle, GL_STATIC_DRAW);
-	//ErrorHandle("VertexBufferObject (VBO) : ");
-
-	// After we have generated VAO and VBO we can pass data to vertex shader.
-	// Enable vertexPosition
-	//glEnableVertexAttribArray(posAttrib);
-	// Pass data to the vertexPosition variable in the vertex shader.
-	//glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
-	//glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), 0);
-
-	//GLint colAttrib = glGetAttribLocation(ShaderProgram.getProgramID(), "color");
-	//glEnableVertexAttribArray(colAttrib);
-	//glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
-	//glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (char*)(3 * sizeof(GLfloat)));
-
-	//GLint texAttrib = glGetAttribLocation(ShaderProgram.getProgramID(), "texcoord");
-	//glEnableVertexAttribArray(texAttrib);
-	//glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), (void*)(5 * sizeof(GLfloat)));
-
-	// Set VAO and VBO back to 0, to avoid unwanted data passing.
-	//glBindVertexArray(0);
-	//glBindBuffer(GL_ARRAY_BUFFER, 0);
-
 	ErrorHandle("VertexAttribPointer : ");
-
 
 	return true;
 }
@@ -211,13 +159,18 @@ bool AppMain::Loop()
 		Start = SDL_GetTicks();
  		while (SDL_PollEvent(&Event))
 		{
-			switch (Event.type)
+			/**
+			*   Basically everything that involves input.
+			*/
+
+			if (Event.type >= SDL_KEYDOWN && Event.type <= SDL_CLIPBOARDUPDATE)
 			{
-				case SDL_QUIT:
-				{
-					Running = false;
-					break;
-				}
+				mInputManager.Update(Event);
+			}
+			if(Event.type == SDL_QUIT)
+			{
+				Running = false;
+				break;
 			}
 		}
 		Update();
@@ -238,15 +191,9 @@ void AppMain::Render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Last binded vertex array will be drawn by OpenGL, thus we will bind VAO
-	//glBindVertexArray();
-
-	//glDrawArrays(GL_TRIANGLES, 0, 3);
-	//glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0); // count = number of elements = number of vertices.
-	//glBindVertexArray(0);
 	ShaderProgram.Bind();
-	glBindVertexArray(mVAOs[0]);
+	
 	mRenderer->DrawMeshes();
-	glBindVertexArray(0);
 
 	glFlush();
 }

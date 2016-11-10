@@ -11,11 +11,6 @@
 
 #include "Debuggers/Debugger.h"
 
-AllocatorGPU::AllocatorGPU()
-{
-
-}
-
 AllocatorGPU::~AllocatorGPU()
 {
 	glDeleteBuffers(mVBOs.size(), &mVBOs[0]);
@@ -28,6 +23,7 @@ void AllocatorGPU::Initialize()
 {
 	GLuint NewVAO;
 	glGenVertexArrays(1, &NewVAO);
+	glBindVertexArray(NewVAO);
 	mVAOs.push_back(NewVAO);
 }
 

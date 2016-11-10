@@ -5,7 +5,7 @@
 #include <memory>
 
 #include "Allocators/AllocatorGPU.h"
-#include "Renderers/Renderer.h"
+#include "Rendering/Renderer.h"
 
 class MeshBase;
 
