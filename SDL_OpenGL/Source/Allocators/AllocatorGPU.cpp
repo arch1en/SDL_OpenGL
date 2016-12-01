@@ -1,6 +1,6 @@
 ////////////////////////////////////////
 //
-//  @project    : Game Engine
+//  @project    : Arch1eN Engine
 //  @author     : Artur Ostrowski
 //  @usage      : This class is responsible for allocating memory to GPU. Everything that is suppose to be deallocated, has to be deallocated through this class !
 //  @version    : 1.0.0

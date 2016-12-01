@@ -1,4 +1,11 @@
-
+////////////////////////////////////////
+//
+//  @project    : Arch1eN Engine
+//  @author     : Artur Ostrowski
+//  @usage      : Handles creation of new meshes onto the scene.
+//  @version    : 1.0.0
+//
+////////////////////////////////////////
 #include "FactoryMesh.h"
 #include "Mesh/MeshBase.h"
 #include "Mesh/MeshTriangle.h"

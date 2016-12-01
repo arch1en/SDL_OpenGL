@@ -56,3 +56,8 @@ inline void g_sdldie(const char* text)
 	SDL_Quit();
 	exit(EXIT_FAILURE);
 }
+
+// *** TYPEDEFS ***
+typedef int32_t EnumBit;
+typedef int32_t ArrayIndex;
+// ~~~ TYPEDEFS ~~~

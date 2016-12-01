@@ -1,4 +1,11 @@
-
+////////////////////////////////////////
+//
+//  @project    : Arch1eN Engine
+//  @author     : Artur Ostrowski
+//  @usage      : Debugging tool, for using Log messages, and future similar mechanisms.
+//  @version    : 1.0.0
+//
+////////////////////////////////////////
 #include "Debugger.h"
 
 #include <string>
@@ -90,13 +97,14 @@ void Debugger::Log_(const char* InFilePath, int InLineNumber, DebugType InDebugT
 	{
 		printf("%s : %s\n", DebugTypeString, String.c_str());
 	}
-	else if (InDebugType > DebugType::EDT_Notice)
-	{
-		SetMessageColor();
-	}
 	else
 	{
 		printf("%s : %s | In %s Line (%i)\n", DebugTypeString, String.c_str(), InFilePath, InLineNumber);
+	}
+	
+	if (InDebugType > DebugType::EDT_Notice)
+	{
+		SetMessageColor();
 	}
 }
 

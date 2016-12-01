@@ -1,19 +1,21 @@
 ////////////////////////////////////////
 //
 //  @project    : Arch1eN Engine
-//  @name       : Mesh Triangle
 //  @author     : Artur Ostrowski
-//  @usage      : Hardcoded triangle mesh for testing purposes.
+//  @usage      : Allows placing objects that derives from this function onto the scene.
 //  @version    : 1.0.0
 //
 ////////////////////////////////////////
 #pragma once
 
-#include "../stdafx.cpp"
-#include "MeshBase.h"
+#include "stdafx.h"
 
-class MeshTriangle : public MeshBase
+#include "Core/Class.h"
+
+class AActor : public Class
 {
 public:
-	MeshTriangle();
+	AActor()
+		: Class()
+	{}
 };

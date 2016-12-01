@@ -1,6 +1,6 @@
 ////////////////////////////////////////
 //
-//  @project    : Arch1en Engine
+//  @project    : Arch1eN Engine
 //  @author     : Artur Ostrowski
 //  @usage      : Debugging class for measuring time between functions. Singleton.
 //  @version    : 1.0.0

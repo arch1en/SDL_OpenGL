@@ -1,3 +1,12 @@
+////////////////////////////////////////
+//
+//  @project    : Arch1eN Engine
+//  @name       : Paths
+//  @author     : Artur Ostrowski
+//  @usage      : Singleton, keeps data concerning paths to various directories in the project.
+//  @version    : 1.0.0
+//
+////////////////////////////////////////
 #include "Paths.h"
 
 Paths::Paths()

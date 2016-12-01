@@ -1,3 +1,11 @@
+////////////////////////////////////////
+//
+//  @project    : Arch1eN Engine
+//  @author     : Artur Ostrowski
+//  @usage      : Debugging tool, for using Log messages, and future similar mechanisms.
+//  @version    : 1.0.0
+//
+////////////////////////////////////////
 #pragma once
 
 #include "stdafx.h"

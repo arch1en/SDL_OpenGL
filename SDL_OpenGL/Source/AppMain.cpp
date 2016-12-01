@@ -1,3 +1,12 @@
+////////////////////////////////////////
+//
+//  @project    : Arch1eN Engine
+//  @name       : Application Main
+//  @author     : Artur Ostrowski
+//  @usage      : Root of the project.
+//  @version    : 1.0.0
+//
+////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 ///
 ///		Main application of OpenGL program.
@@ -26,10 +35,8 @@ AppMain::AppMain()
 	, ShaderProgram()
 	, mRenderer(new Renderer)
 	, mFactoryMesh(mRenderer)
-	, mInputManager()
 	, mMainCamera()
 {
-	mInputManager.Bind(&static_cast<IObserver>(mMainCamera.mInputComponent));
 }
 
 AppMain::~AppMain()
@@ -138,7 +145,7 @@ bool AppMain::InitGL()
 	std::map<std::string, std::string> test;
 	ConfigLoader Loader;
 
-	Loader.LoadConfigData("InputProperties", "Scene.Keyboard.Input", test);
+	Loader.LoadConfigData("InputProperties", "Input.Scene", test);
 	// ~TEST
 
 	mFactoryMesh.NewMesh(MeshType::EMT_PrimitiveTriangle);
@@ -165,7 +172,7 @@ bool AppMain::Loop()
 
 			if (Event.type >= SDL_KEYDOWN && Event.type <= SDL_CLIPBOARDUPDATE)
 			{
-				mInputManager.Update(Event);
+				mModuleHandler.UpdateModule<InputModule>(Event);
 			}
 			if(Event.type == SDL_QUIT)
 			{

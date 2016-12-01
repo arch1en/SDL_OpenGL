@@ -19,9 +19,6 @@
     <Filter Include="Source\Math">
       <UniqueIdentifier>{51d64104-19e3-4c0d-b9a3-0c6abf8df304}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Managers">
-      <UniqueIdentifier>{c0d8cf9f-b8a5-46f2-911c-128b00708691}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Allocators">
       <UniqueIdentifier>{db472e08-b510-45e1-8173-afbb6b029090}</UniqueIdentifier>
     </Filter>
@@ -30,9 +27,6 @@
     </Filter>
     <Filter Include="Source\IO">
       <UniqueIdentifier>{c1265674-d5cc-4b85-9967-35048c68c15d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Scene">
-      <UniqueIdentifier>{6266ec71-657e-470d-803d-77ba2260717e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\Rendering">
       <UniqueIdentifier>{8b097015-a78c-4804-ab39-0d77df0e82d5}</UniqueIdentifier>
@@ -43,8 +37,14 @@
     <Filter Include="Source\Components">
       <UniqueIdentifier>{d5d834c5-d66f-4be8-9682-45b2fc055ecc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Actors">
+      <UniqueIdentifier>{04a5824e-e6e0-4e8b-b311-2cb157f75a72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Modules">
+      <UniqueIdentifier>{c0d8cf9f-b8a5-46f2-911c-128b00708691}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source\Core">
-      <UniqueIdentifier>{ca6b8d3b-aa49-4b49-a127-b5c5ad49a271}</UniqueIdentifier>
+      <UniqueIdentifier>{a38dd1b7-6a3e-40d4-9be6-c2934dc9a254}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -81,9 +81,6 @@
     <ClCompile Include="Source\Debuggers\Debugger.cpp">
       <Filter>Source\Debuggers</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scene\Camera.cpp">
-      <Filter>Source\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Source\IO\Paths.cpp">
       <Filter>Source\IO</Filter>
     </ClCompile>
@@ -96,26 +93,32 @@
     <ClCompile Include="Source\Rendering\ShaderProgram.cpp">
       <Filter>Source\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Managers\InputManager.cpp">
-      <Filter>Source\Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\IO\KeyboardInputLayer.cpp">
-      <Filter>Source\IO</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\IO\MouseInputLayer.cpp">
-      <Filter>Source\IO</Filter>
-    </ClCompile>
     <ClCompile Include="Source\IO\InputLayer.cpp">
       <Filter>Source\IO</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Interfaces\IObserver.cpp">
-      <Filter>Source\Interfaces</Filter>
     </ClCompile>
     <ClCompile Include="Source\Components\InputComponent.cpp">
       <Filter>Source\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Actors\AActor.cpp">
+      <Filter>Source\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\CameraComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Modules\InputModule.cpp">
+      <Filter>Source\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Actors\ACamera.cpp">
+      <Filter>Source\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Core\ModuleHandler.cpp">
+      <Filter>Source\Core</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Core\Class.cpp">
       <Filter>Source\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\BaseComponent.cpp">
+      <Filter>Source\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -152,9 +155,6 @@
     <ClInclude Include="Source\Debuggers\Debugger.h">
       <Filter>Source\Debuggers</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scene\Camera.h">
-      <Filter>Source\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Source\IO\Paths.h">
       <Filter>Source\IO</Filter>
     </ClInclude>
@@ -170,26 +170,32 @@
     <ClInclude Include="Source\Rendering\ShaderProgram.h">
       <Filter>Source\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Managers\InputManager.h">
-      <Filter>Source\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\IO\KeyboardInputLayer.h">
-      <Filter>Source\IO</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\IO\MouseInputLayer.h">
-      <Filter>Source\IO</Filter>
-    </ClInclude>
     <ClInclude Include="Source\IO\InputLayer.h">
       <Filter>Source\IO</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Interfaces\IObserver.h">
-      <Filter>Source\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="Source\Components\InputComponent.h">
       <Filter>Source\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Actors\AActor.h">
+      <Filter>Source\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\CameraComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Modules\InputModule.h">
+      <Filter>Source\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Actors\ACamera.h">
+      <Filter>Source\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\ModuleHandler.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Core\Class.h">
       <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\BaseComponent.h">
+      <Filter>Source\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,11 @@
-
+////////////////////////////////////////
+//
+//  @project    : Arch1eN Engine
+//  @author     : Artur Ostrowski
+//  @usage      : Debugging class for measuring time between functions. Singleton.
+//  @version    : 1.0.0
+//
+////////////////////////////////////////
 #include "DebugTimer.h"
 
 DebugTimer& DebugTimer::GetInstance()

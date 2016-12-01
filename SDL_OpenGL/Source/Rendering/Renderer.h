@@ -1,3 +1,12 @@
+////////////////////////////////////////
+//
+//  @project    : Arch1eN Engine
+//  @name       : Renderer
+//  @author     : Artur Ostrowski
+//  @usage      : Base class responsible for rendering tasks.
+//  @version    : 1.0.0
+//
+////////////////////////////////////////
 #pragma once
 
 #include "../stdafx.h"

@@ -1,4 +1,12 @@
-
+////////////////////////////////////////
+//
+//  @project    : Arch1eN Engine
+//  @name       : Shader Program
+//  @author     : Artur Ostrowski
+//  @usage      : Keeps shader program data and handles it.
+//  @version    : 1.0.0
+//
+////////////////////////////////////////
 #include "stdafx.h"
 #include "ShaderProgram.h"
 
