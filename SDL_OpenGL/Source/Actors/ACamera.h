@@ -23,5 +23,5 @@ private:
 	CameraComponent mCameraComponent;
 	InputComponent mInputComponent;
 
-	void InputListener(std::string aCommand);
+	void InputListener(const KeyData& aKeyData);
 };

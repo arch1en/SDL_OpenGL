@@ -11,10 +11,10 @@
 ACamera::ACamera()
 	: AActor()
 {
-	mInputComponent.Bind("Input.Scene", this, &ACamera::InputListener);
+	mInputComponent.BindContinuous("Input.Scene", this, &ACamera::InputListener);
 }
 
-void ACamera::InputListener(std::string aCommand)
+void ACamera::InputListener(const KeyData& aKeyData)
 {
-	printf("%s", aCommand.c_str());
+	printf("%s", aKeyData.Command.c_str());
 }

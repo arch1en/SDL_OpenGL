@@ -29,25 +29,50 @@ public:
 
 	~InputComponent()
 	{
-		for (std::shared_ptr<InputLayer>& Layer : mLayersBoundTo)
+		for (const std::string& Layer : mLayersBoundTo)
 		{
-			InputModule::GetSingleton().UnregisterFromLayer(this, Layer->GetCategory());
+			InputModule::GetSingleton().UnregisterFromLayer(this, Layer);
 		}
 	}
 	  
 
 	template <typename ClassType>
-	void Bind(const std::string& aLayerName, ClassType* aReference, void(ClassType::*aTMethod)(std::string))
+	void BindIntermittent(const std::string& aLayerName, ClassType* aReference, void(ClassType::*aTMethod)(const KeyData&))
 	{
-		std::function<void(std::string)> Delegate = std::bind(aTMethod, aReference, std::placeholders::_1);
-		InputModule::GetSingleton().RegisterToLayer(this, aLayerName);
-		mDelegates.push_back(Delegate);
+		std::function<void(const KeyData&)> Delegate = std::bind(aTMethod, aReference, std::placeholders::_1);
+		RegisterToLayer(aLayerName);
+		mIntermittentDelegates.push_back(Delegate);
 	}
 
-	std::vector<std::function<void(std::string)>>& GetDelegates() { return mDelegates; }
+	template <typename ClassType>
+	void BindContinuous(const std::string& aLayerName, ClassType* aReference, void(ClassType::*aTMethod)(const KeyData&))
+	{
+		std::function<void(const KeyData&)> Delegate = std::bind(aTMethod, aReference, std::placeholders::_1);
+		RegisterToLayer(aLayerName);
+		mContinuousDelegates.push_back(Delegate);
+	}
+
+	inline std::vector<std::function<void(const KeyData&)>>& GetIntermittentDelegates() { return mIntermittentDelegates; }
+	inline std::vector<std::function<void(const KeyData&)>>& GetContinuousDelegates() { return mContinuousDelegates; }
 
 private:
-	std::vector<std::function<void(std::string)>>	mDelegates;
-	std::vector<std::shared_ptr<InputLayer>>		mLayersBoundTo;
+	std::vector<std::function<void(const KeyData&)>>	mContinuousDelegates;
+	std::vector<std::function<void(const KeyData&)>>	mIntermittentDelegates;
+	std::vector<std::string>						mLayersBoundTo;
 
+	void RegisterToLayer(const std::string& aLayerName)
+	{
+		bool RegisterResult = InputModule::GetSingleton().RegisterToLayer(this, aLayerName);
+
+
+		if (RegisterResult == true)
+		{
+			auto& Result = std::find(mLayersBoundTo.begin(), mLayersBoundTo.end(), aLayerName);
+
+			if (Result == mLayersBoundTo.end())
+			{
+				mLayersBoundTo.push_back(aLayerName);
+			}
+		}
+	}
 };

@@ -18,7 +18,7 @@ InputLayer::InputLayer(const std::string& aLayerCategory)
 	mCategory = aLayerCategory;
 }
 
-InputLayer::InputLayer(const std::string& aLayerCategory, std::map<std::string, std::string> aKeyMap)
+InputLayer::InputLayer(const std::string& aLayerCategory, std::map<char, std::string> aKeyMap)
 {
 	mCategory = aLayerCategory;
 	mKeyMap = aKeyMap;
@@ -65,13 +65,10 @@ const ArrayIndex InputLayer::IsComponentBound(InputComponent* aComponent)
 
 std::string InputLayer::TranslateInputKey(const SDL_Keycode& aInputKey)
 {
-	std::string Char;
-	Char.push_back(static_cast<char>(aInputKey));
-
-	return FindCommandByKey(Char);
+	return FindCommandByKey(static_cast<char>(aInputKey));
 }
 
-std::string InputLayer::FindCommandByKey(const std::string& aKey)
+std::string InputLayer::FindCommandByKey(const char& aKey)
 {
 	auto Result = mKeyMap.find(aKey);
 
@@ -84,22 +81,38 @@ std::string InputLayer::FindCommandByKey(const std::string& aKey)
 	return std::string();
 }
 
-void InputLayer::BroadcastCommand(const SDL_Keycode& aInputKey)
+void InputLayer::PrepareAndBroadcastIntermittentCommand(const SDL_Keycode& aInputKey)
 {
 	const std::string TranslatedKey = TranslateInputKey(aInputKey);
 	if (CanBroadcastCommand(TranslatedKey) == true)
 	{
-		BroadcastCommand(TranslatedKey);
+		KeyData Data;
+
+		Data.Key = static_cast<char>(aInputKey);
+		Data.Command = TranslatedKey;
+
+		BroadcastIntermittentCommand(Data);
 	}
 }
 
-void InputLayer::BroadcastCommand(std::string aCommand)
+void InputLayer::BroadcastIntermittentCommand(const KeyData& aKeyData)
 {
 	for (auto& Component : mBoundComponents)
 	{
-		for (auto& Delegate : Component->GetDelegates())
+		for (auto& Delegate : Component->GetIntermittentDelegates())
 		{
-			Delegate(aCommand);
+			Delegate(aKeyData);
+		}
+	}
+}
+
+void InputLayer::BroadcastContinuousCommand(const KeyData& aKeyData)
+{
+	for (auto& Component : mBoundComponents)
+	{
+		for (auto& Delegate : Component->GetContinuousDelegates())
+		{
+			Delegate(aKeyData);
 		}
 	}
 }

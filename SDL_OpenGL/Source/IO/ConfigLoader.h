@@ -16,6 +16,7 @@ class ConfigLoader
 {
 public:
 	int LoadConfigData(const std::string& InFileName, const std::string& InCategory, std::map<std::string, std::string>& OutResult);
+	int LoadInputData(const std::string& InFileName, const std::string& InCategory, std::map<char, std::string>& OutResult);
 	
 	static inline ConfigLoader& GetInstance()
 	{
@@ -23,6 +24,10 @@ public:
 		return Instance;
 	}
 
-	void ReloadConfigData(); // TODO : Implement
+	// TODO : Implement
+	void ReloadConfigData(); 
+private:
 
+	// TODO : Implement
+	void LoadDataFromFile(const std::string& InFileName, const std::string& InCategory, std::map<std::string, std::string>& OutResult);
 };

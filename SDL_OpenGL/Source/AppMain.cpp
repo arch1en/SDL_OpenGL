@@ -164,12 +164,17 @@ bool AppMain::Loop()
 	while (Running)
 	{
 		Start = SDL_GetTicks();
+
+		/**
+		*   Continuous update.
+		*/
+		mModuleHandler.UpdateModule<InputModule>();
+
  		while (SDL_PollEvent(&Event))
 		{
 			/**
-			*   Basically everything that involves input.
+			*   Intermittent update.
 			*/
-
 			if (Event.type >= SDL_KEYDOWN && Event.type <= SDL_CLIPBOARDUPDATE)
 			{
 				mModuleHandler.UpdateModule<InputModule>(Event);
@@ -180,6 +185,7 @@ bool AppMain::Loop()
 				break;
 			}
 		}
+
 		Update();
 		Render();
 		SDL_GL_SwapWindow(Window);

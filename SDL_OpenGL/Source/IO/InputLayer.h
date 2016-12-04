@@ -16,31 +16,40 @@
 
 class InputComponent;
 
+struct KeyData
+{
+	char Key;
+	std::string Command;
+};
+
 class InputLayer
 {
 public:
 	InputLayer(const std::string& InLayerCategory);
-	InputLayer(const std::string& InLayerCategory, std::map<std::string, std::string> InKeyMap);
+	InputLayer(const std::string& InLayerCategory, std::map<char, std::string> InKeyMap);
 	virtual ~InputLayer() {}
 
 	void BindComponent(InputComponent* aComponent);
 	void UnbindComponent(InputComponent* aComponent);
 
 	std::string TranslateInputKey(const SDL_Keycode& aInputKey);
-	void BroadcastCommand(const SDL_Keycode& aInputKey);
-	void BroadcastCommand(std::string aCommand);
+	void PrepareAndBroadcastIntermittentCommand(const SDL_Keycode& aInputKey);
+	void BroadcastIntermittentCommand(const KeyData& aKeyData);
+	void BroadcastContinuousCommand(const KeyData& aKeyData);
 
-	std::string FindCommandByKey(const std::string& aKey);
+	std::string FindCommandByKey(const char& aKey);
 	const std::string GetCategory() { return mCategory; }
 
 	bool CanBroadcastCommand(const std::string& aCommand);
+
+	inline std::map<char, std::string>&	GetKeyMap() { return mKeyMap; }
 
 	const ArrayIndex IsComponentBound(InputComponent* aComponent);
 protected:
 
 	std::string mCategory;
 
-	std::map<std::string, std::string>	mKeyMap;
+	std::map<char, std::string>	mKeyMap;
 
 	std::vector<InputComponent*> mBoundComponents;
 };
