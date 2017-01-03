@@ -27,12 +27,14 @@ public:
 	void Initialize();
 	~AllocatorGPU();
 
-	void AllocateStaticMesh(MeshBase* _Mesh);
+	bool AllocateStaticMesh(MeshBase* aMesh);
+	void AllocateTextureData(MeshBase* aMesh);
 
 private:
 
-	std::vector<GLuint>		mVAOs;
-	std::vector<GLuint>		mVBOs;
-	std::vector<GLuint>		mEBOs;
+	std::vector<GLuint>		mVAOs;	// Vertex Array Object
+	std::vector<GLuint>		mVBOs;	// Vertex Buffer Object
+	std::vector<GLuint>		mTBOs;	// Texture Buffer Object
+	std::vector<GLuint>		mEBOs;	// Element Buffer OBject
 
 };

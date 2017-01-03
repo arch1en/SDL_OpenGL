@@ -29,5 +29,13 @@ MeshTriangle::MeshTriangle()
 
 	mPolygonData.Elements = { 0, 1, 2 };
 
+	mPolygonData.NumTextureCoordinates = 0;
+
+	mPolygonData.TextureCoordinates = {
+		0.0f, 0.0f,
+		0.5f, 1.0f,
+		1.0f, 0.0f,
+	};
+
 	MeshTag = "Primitive2DTriangle";
 }

@@ -10,19 +10,17 @@
 
 #include "stdafx.h"
 
-#include "Components\InputComponent.h"
+#include "ActorComponent.h"
 
-class CameraComponent 
+class CameraComponent : public ActorComponent
 {
 public:
 	
 	CameraComponent();
-	//void Update(float DeltaTime);
-	
+
+protected:
+	virtual void Update(float aDeltaTime) override;
 private:
-	glm::vec3 Position;
-	glm::vec3 UpVector;
-	glm::vec3 ForwardVector;
 	
 	glm::mat4 ViewMatrix;
 

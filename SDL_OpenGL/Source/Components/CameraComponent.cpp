@@ -9,10 +9,12 @@
 #include "CameraComponent.h"
 
 CameraComponent::CameraComponent()
-	: Position(0.f, 0.f, 0.f)
-	, UpVector(0.0f, 1.0f, 0.0f)
-	, ForwardVector(0.0f, 0.0f, -1.0f)
-	, ViewMatrix(glm::lookAt(Position, Position + ForwardVector, UpVector))
+	: ViewMatrix(glm::lookAt(mPosition, mPosition + mForwardVector, mUpVector))
+{
+
+}
+
+void CameraComponent::Update(float aDeltaTime)
 {
 
 }

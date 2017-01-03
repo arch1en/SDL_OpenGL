@@ -20,4 +20,7 @@ public:
 	{
 
 	}
+
+protected:
+	virtual void Update(float aDeltaTime) = 0;
 };

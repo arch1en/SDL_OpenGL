@@ -54,6 +54,9 @@ public:
 
 	inline std::vector<std::function<void(const KeyData&)>>& GetIntermittentDelegates() { return mIntermittentDelegates; }
 	inline std::vector<std::function<void(const KeyData&)>>& GetContinuousDelegates() { return mContinuousDelegates; }
+protected:
+
+	void Update(float aDeltaTime) override {}
 
 private:
 	std::vector<std::function<void(const KeyData&)>>	mContinuousDelegates;

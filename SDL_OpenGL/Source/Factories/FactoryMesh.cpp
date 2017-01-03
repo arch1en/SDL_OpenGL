@@ -23,17 +23,41 @@ void FactoryMesh::Initialize()
 
 std::shared_ptr<MeshBase> FactoryMesh::NewMesh(MeshType InMeshType)
 {
-	std::shared_ptr<MeshBase> NewMesh;
+	std::shared_ptr<MeshBase> Mesh(nullptr);
 
 	if (InMeshType == MeshType::EMT_PrimitiveTriangle)
 	{
-		NewMesh = std::shared_ptr<MeshBase>( new MeshTriangle());
+		Mesh = std::make_shared<MeshTriangle>();
 	}
 
-	mAllocatorGPU.AllocateStaticMesh(NewMesh.get());
-	mRenderer->AddMeshToDraw(NewMesh);
+	bool MeshAllocationResult = mAllocatorGPU.AllocateStaticMesh(Mesh.get());
+	if (MeshAllocationResult == false)
+	{
+		Log(DebugType::EDT_Error, "Mesh creation failed !");
+		return nullptr;
+	}
+
+	mRenderer->AddMeshToDraw(Mesh);
+
 	// Allocate memory for mesh
 	// Create Mesh
 	// Return Mesh
-	return NewMesh;
+	mCreatedMeshes.push_back(Mesh);
+
+	return Mesh;
+}
+
+void FactoryMesh::DestroyMesh(std::shared_ptr<MeshBase> aMesh)
+{
+	if (mCreatedMeshes.size() == 0) return;
+
+	for (auto& iter = mCreatedMeshes.begin(); iter != mCreatedMeshes.end(); iter++)
+	{
+		// TODO : Test if this works.
+		if (*iter == aMesh)
+		{
+			iter->reset();
+			mCreatedMeshes.erase(iter);
+		}
+	}
 }

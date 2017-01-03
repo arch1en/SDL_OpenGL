@@ -8,7 +8,7 @@
 ////////////////////////////////////////
 #pragma once
 
-#include "../stdafx.h"
+#include "stdafx.h"
 
 #include <memory>
 
@@ -33,10 +33,13 @@ public:
 	void Initialize();
 
 	std::shared_ptr<MeshBase> NewMesh(MeshType InMeshType);
+	void DestroyMesh(std::shared_ptr<MeshBase> aMesh);
 
 private:
 
 	AllocatorGPU				mAllocatorGPU;
 	std::shared_ptr<Renderer>	mRenderer;
+
+	std::vector<std::shared_ptr<MeshBase>> mCreatedMeshes;
 
 };

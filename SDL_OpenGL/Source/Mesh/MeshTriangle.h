@@ -16,4 +16,5 @@ class MeshTriangle : public MeshBase
 {
 public:
 	MeshTriangle();
+	~MeshTriangle() {}
 };

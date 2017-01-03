@@ -62,5 +62,18 @@ namespace an
 		}
 	};
 
+	std::string GetFileExtension(const char* aFilePath)
+	{
+		std::vector<std::string> OutTokens;
+		Split(aFilePath, '.', OutTokens);
+		if (OutTokens.size() == 2)
+		{
+			return OutTokens[1];
+		}
+		else
+		{
+			return "";
+		}
+	}
 }
 

@@ -15,6 +15,7 @@
     <ClCompile Include="Source\Actors\ACamera.cpp" />
     <ClCompile Include="Source\Allocators\AllocatorGPU.cpp" />
     <ClCompile Include="Source\AppMain.cpp" />
+    <ClCompile Include="Source\Components\ActorComponent.cpp" />
     <ClCompile Include="Source\Components\BaseComponent.cpp" />
     <ClCompile Include="Source\Components\CameraComponent.cpp" />
     <ClCompile Include="Source\Components\InputComponent.cpp" />
@@ -34,6 +35,7 @@
     <ClCompile Include="Source\Modules\InputModule.cpp" />
     <ClCompile Include="Source\Rendering\Renderer.cpp" />
     <ClCompile Include="Source\Rendering\ShaderProgram.cpp" />
+    <ClCompile Include="Source\Rendering\Texture.cpp" />
     <ClCompile Include="Source\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -41,6 +43,7 @@
     <ClInclude Include="Source\Actors\ACamera.h" />
     <ClInclude Include="Source\Allocators\AllocatorGPU.h" />
     <ClInclude Include="Source\AppMain.h" />
+    <ClInclude Include="Source\Components\ActorComponent.h" />
     <ClInclude Include="Source\Components\BaseComponent.h" />
     <ClInclude Include="Source\Components\CameraComponent.h" />
     <ClInclude Include="Source\Components\InputComponent.h" />
@@ -60,6 +63,7 @@
     <ClInclude Include="Source\Modules\InputModule.h" />
     <ClInclude Include="Source\Rendering\Renderer.h" />
     <ClInclude Include="Source\Rendering\ShaderProgram.h" />
+    <ClInclude Include="Source\Rendering\Texture.h" />
     <ClInclude Include="Source\Sampler.h" />
     <ClInclude Include="Source\stdafx.h" />
   </ItemGroup>

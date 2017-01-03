@@ -20,13 +20,23 @@ struct PolygonData
 	GLint		NumColor;
 	std::vector<GLint>		Elements;
 	GLint		NumElements;
+	std::vector<GLfloat>	TextureCoordinates;
+	GLint		NumTextureCoordinates;
+
+	PolygonData()
+		: NumIndices{0}
+		, NumColor{0}
+		, NumElements{0}
+		, NumTextureCoordinates{0}
+	{}
+
 };
 
 class MeshBase
 {
 
 public:
-	virtual ~MeshBase();
+	virtual ~MeshBase() {}
 
 	PolygonData mPolygonData;
 
@@ -39,5 +49,6 @@ private:
 	std::shared_ptr<GLuint> mRefVAO;
 	std::shared_ptr<GLuint> mRefVBO;
 	std::shared_ptr<GLuint> mRefEBO;
+	std::shared_ptr<GLuint> mRefTBO;
 
 };
