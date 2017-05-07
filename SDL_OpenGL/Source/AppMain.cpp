@@ -33,8 +33,7 @@ AppMain::AppMain()
 	, Running(false)
 	, Event()
 	, ShaderProgram()
-	, mRenderer(new Renderer)
-	, mFactoryMesh(mRenderer)
+	, mRenderer(std::make_shared<Renderer>())
 	, mMainCamera()
 {
 }
@@ -83,8 +82,7 @@ bool AppMain::Init()
 	}
 
 	glClearColor(0.0, 0.0, 0.0, 1.0);
-	glClear(GL_COLOR_BUFFER_BIT);
-	glClear(GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	SDL_GL_SwapWindow(Window);
 
 	// Set the area to view in frustum.
@@ -120,7 +118,13 @@ bool AppMain::InitGL()
 
 	glEnable(GL_DEPTH_TEST);
 
-	mFactoryMesh.Initialize();
+	mAllocatorGPU = std::make_shared<AllocatorGPU>();
+	mAllocatorGPU->Initialize();
+
+	FactoryMesh* Factory = FactoryMesh::GetInstance();
+	Factory->SetRenderer(mRenderer);
+	Factory->SetAllocatorGPU(mAllocatorGPU);
+	Factory->Initialize();
 
 	ShaderProgram.Init();
 
@@ -148,7 +152,7 @@ bool AppMain::InitGL()
 	Loader.LoadConfigData("InputProperties", "Input.Scene", test);
 	// ~TEST
 
-	mFactoryMesh.NewMesh(MeshType::EMT_PrimitiveTriangle);
+	Actor = mFactoryActor.NewActor("triangle");
 
 	ErrorHandle("VertexAttribPointer : ");
 
@@ -186,16 +190,27 @@ bool AppMain::Loop()
 			}
 		}
 
-		Update();
-		Render();
+		mDeltaTimeLast = mDeltaTimeNow;
+		mDeltaTimeNow = SDL_GetPerformanceCounter();
+
+		double DeltaTime = (double)((mDeltaTimeNow - mDeltaTimeLast) * 1000 / SDL_GetPerformanceCounter());
+
+		Update(DeltaTime);
+		if (mRenderingFailed == false)
+		{
+			Render();
+		}
 		SDL_GL_SwapWindow(Window);
 	}
 	return true;
 }
 
-void AppMain::Update()
+void AppMain::Update(double aDeltaTime)
 {
-
+	for (const auto& Iter : mActors)
+	{	
+		Iter->Update(aDeltaTime);
+	}
 }
 
 void AppMain::Render()
@@ -205,8 +220,42 @@ void AppMain::Render()
 
 	// Last binded vertex array will be drawn by OpenGL, thus we will bind VAO
 	ShaderProgram.Bind();
-	
-	mRenderer->DrawMeshes();
+	glm::mat4 View{ glm::mat4() };
+
+	// Calculate model, view and projection matrices.
+	int ErrorCode = mMainCamera.GetCameraComponent()->GetViewMatrix(View);
+
+	if (ErrorCode != 0)
+	{
+		Log(DebugType::EDT_Error, "Attached actor is invalid.");
+	}
+
+	GLint ModelUniformLocation = -1;
+	GLint ViewUniformLocation = -1;
+	GLint ProjectionUniformLocation = -1;
+
+	if (ShaderProgram.GetModelUniformLocation(ModelUniformLocation) != 0)
+	{
+		Log(DebugType::EDT_Notice, "Failed to retrieve model uniform location.");
+		mRenderingFailed = true;
+		return;
+	}
+
+	if (ShaderProgram.GetViewUniformLocation(ViewUniformLocation) != 0)
+	{
+		Log(DebugType::EDT_Notice, "Failed to retrieve view uniform location.");
+		mRenderingFailed = true;
+		return;
+	}
+
+	if (ShaderProgram.GetProjectionUniformLocation(ProjectionUniformLocation) != 0)
+	{
+		Log(DebugType::EDT_Notice, "Failed to retrieve view uniform location.");
+		mRenderingFailed = true;
+		return;
+	}
+
+	mRenderer->DrawMeshes(mAllocatorGPU->GetActiveVAO(), View, ModelUniformLocation, ViewUniformLocation, ProjectionUniformLocation);
 
 	glFlush();
 }

@@ -11,16 +11,22 @@
 #include "stdafx.h"
 
 #include "Core\Class.h"
+#include "Actors\AActor.h"
 
 class BaseComponent : public Class
 {
 public:
-	BaseComponent()
-		: Class()
-	{
+	BaseComponent() {}
+	~BaseComponent() {}
 
-	}
+	const std::string GetComponentType() const;
+	virtual void Update(float aDeltaTime) = 0;
 
 protected:
-	virtual void Update(float aDeltaTime) = 0;
+	std::string mComponentType;
+	std::unique_ptr<AActor> mActorAttached;
+
+
+private:
+
 };

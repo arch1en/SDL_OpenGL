@@ -16,13 +16,16 @@ class CameraComponent : public ActorComponent
 {
 public:
 	
-	CameraComponent();
-
+	CameraComponent(AActor* aOwner);
+	// @return - Error code.
+	// 0 - Success.
+	// 1 - Actor Attached is invalid.
+	int			GetViewMatrix(glm::mat4& aMatrix) const;
 protected:
 	virtual void Update(float aDeltaTime) override;
 private:
 	
-	glm::mat4 ViewMatrix;
+	glm::mat4 mViewMatrix;
 
 };
 

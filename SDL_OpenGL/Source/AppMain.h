@@ -12,6 +12,7 @@
 #include "stdafx.h"
 #include "Sampler.h"
 #include "Factories\FactoryMesh.h"
+#include "Factories\FactoryActor.h"
 #include "Rendering\Renderer.h"
 #include "Rendering\ShaderProgram.h"
 #include "Core/ModuleHandler.h"
@@ -52,7 +53,7 @@ public:
 	void LoadCoreModules(); 
 
 	bool Loop();
-	void Update();
+	void Update(double aDeltaTime);
 	void Render();
 	void Events();
 	void ErrorHandle(const char* msg);
@@ -60,19 +61,30 @@ public:
 
 private:
 
+	bool mRenderingFailed = false;
+
+	Uint64	mDeltaTimeNow;
+	Uint64	mDeltaTimeLast;
+
 	SDL_Window *	Window;
 	SDL_GLContext	GLContext;
 	Uint32			Start;
 	bool			Running;
 	SDL_Event		Event;
 	ShaderProgram	ShaderProgram;
-
+	FactoryActor	mFactoryActor;
 	ModuleHandler	mModuleHandler;
 	ACamera			mMainCamera;
 
-	// OpenGL vars
 
+	std::vector<std::shared_ptr<AActor>> mActors;
+
+	// OpenGL vars
+	std::shared_ptr<AllocatorGPU>	mAllocatorGPU;
 	std::shared_ptr<Renderer>		mRenderer;
-	FactoryMesh						mFactoryMesh;
+
+	// TEMP
+	std::shared_ptr<AActor> Actor;
+	// ~TEMP
 
 }; 

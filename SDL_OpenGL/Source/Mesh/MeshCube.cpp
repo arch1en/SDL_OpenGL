@@ -11,29 +11,28 @@
 
 MeshCube::MeshCube()
 {
-	//NumIndices = new int(3 * 8);
+	mPolygonData.NumIndices = 3 * 8;
 
-	//Indices = new float[*NumIndices] { -0.5f, +0.5f, +0.5f,
-	//						+0.5f, +0.5f, +0.5f,
-	//						-0.5f, -0.5f, +0.5f,
-	//						+0.5f, -0.5f, +0.5f,
-	//						-0.5f, +0.5f, -0.5f,
-	//						+0.5f, +0.5f, -0.5f,
-	//						-0.5f, -0.5f, -0.5f,
-	//						+0.5f, -0.5f, -0.5f, };
+	mPolygonData.Indices = {	-0.5f, +0.5f, +0.5f,
+								+0.5f, +0.5f, +0.5f,
+								-0.5f, -0.5f, +0.5f,
+								+0.5f, -0.5f, +0.5f,
+								-0.5f, +0.5f, -0.5f,
+								+0.5f, +0.5f, -0.5f,
+								-0.5f, -0.5f, -0.5f,
+								+0.5f, -0.5f, -0.5f, };
 
-	//NumColorParameters = new int(3 * 8);
+	mPolygonData.NumColor = 3 * 8;
 
-	//Color = new float[*NumColorParameters] {	1.0f, 0.0f, 0.0f,
-	//						1.0f, 0.5f, 1.0f,
-	//						1.0f, 0.0f, 0.5f,
-	//						1.0f, 0.5f, 0.0f,
-	//						0.5f, 1.0f, 0.5f,
-	//						0.5f, 1.0f, 1.0f,
-	//						0.0f, 1.0f, 0.5f,
-	//						0.0f, 1.0f, 1.0f };
-
-	// TODO : Add Elements and NumElements.
+	mPolygonData.Color = {	1.0f, 0.0f, 0.0f,
+							1.0f, 0.5f, 1.0f,
+							1.0f, 0.0f, 0.5f,
+							1.0f, 0.5f, 0.0f,
+							0.5f, 1.0f, 0.5f,
+							0.5f, 1.0f, 1.0f,
+							0.0f, 1.0f, 0.5f,
+							0.0f, 1.0f, 1.0f };
+	
 
 	MeshTag = "PrimitiveCube";
 

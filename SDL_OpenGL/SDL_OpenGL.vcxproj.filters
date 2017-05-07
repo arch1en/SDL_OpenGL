@@ -46,6 +46,12 @@
     <Filter Include="Source\Core">
       <UniqueIdentifier>{a38dd1b7-6a3e-40d4-9be6-c2934dc9a254}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Rendering\Textures">
+      <UniqueIdentifier>{ab16de75-833b-455b-b176-ee34d767abec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actors\PrimitiveActors">
+      <UniqueIdentifier>{f1aaeaa6-a92b-4fba-adee-bf2e1877d276}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\AppMain.cpp">
@@ -119,6 +125,24 @@
     </ClCompile>
     <ClCompile Include="Source\Components\BaseComponent.cpp">
       <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\Textures\Texture.cpp">
+      <Filter>Source\Rendering\Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\MovementComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\MeshComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\ActorComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Factories\FactoryActor.cpp">
+      <Filter>Source\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Actors\PrimitiveActors\ATriangle.cpp">
+      <Filter>Source\Actors\PrimitiveActors</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +220,24 @@
     </ClInclude>
     <ClInclude Include="Source\Components\BaseComponent.h">
       <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rendering\Textures\Texture.h">
+      <Filter>Source\Rendering\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\MovementComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\MeshComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\ActorComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Factories\FactoryActor.h">
+      <Filter>Source\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Actors\PrimitiveActors\ATriangle.h">
+      <Filter>Source\Actors\PrimitiveActors</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

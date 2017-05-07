@@ -13,16 +13,20 @@
   <ItemGroup>
     <ClCompile Include="Source\Actors\AActor.cpp" />
     <ClCompile Include="Source\Actors\ACamera.cpp" />
+    <ClCompile Include="Source\Actors\PrimitiveActors\ATriangle.cpp" />
     <ClCompile Include="Source\Allocators\AllocatorGPU.cpp" />
     <ClCompile Include="Source\AppMain.cpp" />
     <ClCompile Include="Source\Components\ActorComponent.cpp" />
     <ClCompile Include="Source\Components\BaseComponent.cpp" />
     <ClCompile Include="Source\Components\CameraComponent.cpp" />
     <ClCompile Include="Source\Components\InputComponent.cpp" />
+    <ClCompile Include="Source\Components\MeshComponent.cpp" />
+    <ClCompile Include="Source\Components\MovementComponent.cpp" />
     <ClCompile Include="Source\Core\Class.cpp" />
     <ClCompile Include="Source\Core\ModuleHandler.cpp" />
     <ClCompile Include="Source\Debuggers\Debugger.cpp" />
     <ClCompile Include="Source\Debuggers\DebugTimer.cpp" />
+    <ClCompile Include="Source\Factories\FactoryActor.cpp" />
     <ClCompile Include="Source\Factories\FactoryMesh.cpp" />
     <ClCompile Include="Source\IO\ConfigLoader.cpp" />
     <ClCompile Include="Source\IO\InputLayer.cpp" />
@@ -35,22 +39,26 @@
     <ClCompile Include="Source\Modules\InputModule.cpp" />
     <ClCompile Include="Source\Rendering\Renderer.cpp" />
     <ClCompile Include="Source\Rendering\ShaderProgram.cpp" />
-    <ClCompile Include="Source\Rendering\Texture.cpp" />
+    <ClCompile Include="Source\Rendering\Textures\Texture.cpp" />
     <ClCompile Include="Source\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Actors\AActor.h" />
     <ClInclude Include="Source\Actors\ACamera.h" />
+    <ClInclude Include="Source\Actors\PrimitiveActors\ATriangle.h" />
     <ClInclude Include="Source\Allocators\AllocatorGPU.h" />
     <ClInclude Include="Source\AppMain.h" />
     <ClInclude Include="Source\Components\ActorComponent.h" />
     <ClInclude Include="Source\Components\BaseComponent.h" />
     <ClInclude Include="Source\Components\CameraComponent.h" />
     <ClInclude Include="Source\Components\InputComponent.h" />
+    <ClInclude Include="Source\Components\MeshComponent.h" />
+    <ClInclude Include="Source\Components\MovementComponent.h" />
     <ClInclude Include="Source\Core\Class.h" />
     <ClInclude Include="Source\Core\ModuleHandler.h" />
     <ClInclude Include="Source\Debuggers\Debugger.h" />
     <ClInclude Include="Source\Debuggers\DebugTimer.h" />
+    <ClInclude Include="Source\Factories\FactoryActor.h" />
     <ClInclude Include="Source\Factories\FactoryMesh.h" />
     <ClInclude Include="Source\Helpers.h" />
     <ClInclude Include="Source\IO\ConfigLoader.h" />
@@ -63,7 +71,7 @@
     <ClInclude Include="Source\Modules\InputModule.h" />
     <ClInclude Include="Source\Rendering\Renderer.h" />
     <ClInclude Include="Source\Rendering\ShaderProgram.h" />
-    <ClInclude Include="Source\Rendering\Texture.h" />
+    <ClInclude Include="Source\Rendering\Textures\Texture.h" />
     <ClInclude Include="Source\Sampler.h" />
     <ClInclude Include="Source\stdafx.h" />
   </ItemGroup>

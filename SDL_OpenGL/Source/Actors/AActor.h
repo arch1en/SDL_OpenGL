@@ -12,17 +12,32 @@
 
 #include "Core/Class.h"
 #include <glm/gtc/quaternion.hpp>
+//#include "Components/BaseComponent.h"
+
+class BaseComponent;
 
 class AActor : public Class
 {
 public:
-	AActor()
-		: Class()
-		, mPosition{glm::vec3(0.0f, 0.0f, 0.0f)}
-		, mRotation{glm::quat(0.0f, 0.0f, 0.0f, 1.0f)}
-	{}
+	AActor();
+	~AActor();
+
+	virtual void Update(float aDeltaTime);
+
+	glm::vec3 GetWorldPosition() const;
+	glm::quat GetWorldRotation() const;
+	glm::vec3 GetUpVector() const;
+	glm::vec3 GetDirection() const;
+	glm::vec3 GetForwardVector() const;
+
 protected:
 
-	glm::vec3 mPosition;
-	glm::quat mRotation;
+	glm::vec3 mWorldPosition;
+	glm::quat mWorldRotation;
+	// [Temp] TODO : Temporary for lookat function in camera component. will be replaced.
+	glm::vec3 mDirection;
+	glm::vec3 mUpVector;
+
+	std::vector<BaseComponent*> mComponents;
+
 };

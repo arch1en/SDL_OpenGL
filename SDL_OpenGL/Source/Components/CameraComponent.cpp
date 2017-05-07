@@ -8,13 +8,23 @@
 ////////////////////////////////////////
 #include "CameraComponent.h"
 
-CameraComponent::CameraComponent()
-	: ViewMatrix(glm::lookAt(mPosition, mPosition + mForwardVector, mUpVector))
+CameraComponent::CameraComponent(AActor* aOwner)
+	: ActorComponent{aOwner}
+	, mViewMatrix()
 {
-
+	mComponentType = "Camera";
 }
 
 void CameraComponent::Update(float aDeltaTime)
 {
 
+}
+
+int	CameraComponent::GetViewMatrix(glm::mat4& aMatrix) const
+{
+	if (GetOwner() == nullptr) return 1;
+
+	aMatrix = glm::lookAt(GetOwner()->GetWorldPosition(), GetOwner()->GetWorldPosition() + GetOwner()->GetForwardVector(), GetOwner()->GetUpVector());
+
+	return 0;
 }

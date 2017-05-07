@@ -11,10 +11,66 @@
 ACamera::ACamera()
 	: AActor()
 {
-	mInputComponent.BindContinuous("Input.Scene", this, &ACamera::InputListener);
+	mCameraComponent = std::make_shared<CameraComponent>(this);
+	if (mCameraComponent != nullptr)
+	{
+		BaseComponent* Component = static_cast<BaseComponent*>(mCameraComponent.get());
+		mComponents.push_back(Component);
+	}
+	mInputComponent = std::make_shared<InputComponent>();
+	if (mInputComponent != nullptr)
+	{
+		BaseComponent* Component = static_cast<BaseComponent*>(mInputComponent.get());
+		mComponents.push_back(Component);
+	}
+	mMovementComponent = std::make_shared<MovementComponent>();
+	if (mMovementComponent != nullptr)
+	{
+		BaseComponent* Component = static_cast<BaseComponent*>(mMovementComponent.get());
+		mComponents.push_back(Component);
+	}
+
+	mInputComponent->BindContinuous("Input.Scene", this, &ACamera::InputListener);
+	mMovementComponent->SetSpeed(1.f);
+}
+
+ACamera::~ACamera()
+{
+	mCameraComponent.reset();
+	mInputComponent.reset();
+	mMovementComponent.reset();
 }
 
 void ACamera::InputListener(const KeyData& aKeyData)
 {
-	printf("%s", aKeyData.Command.c_str());
+	if (aKeyData.Command.compare("MoveForward") == 0)
+	{
+		mMovementComponent->SetDirection(glm::vec3(0.f, 0.f, -1.f));
+	}
+	else if (aKeyData.Command.compare("MoveBackwards") == 0)
+	{
+		mMovementComponent->SetDirection(glm::vec3(0.f, 0.f, 1.f));
+	}
+	else if (aKeyData.Command.compare("StrafeLeft") == 0)
+	{
+		mMovementComponent->SetDirection(glm::vec3(-1.f, 0.f, 0.f));
+	}
+	else if (aKeyData.Command.compare("StrafeRight") == 0)
+	{
+		mMovementComponent->SetDirection(glm::vec3(1.f, 0.f, 0.f));
+	}
+
+	mWorldPosition += mMovementComponent->GetCalculatedMovement();
+}
+
+void ACamera::Update(float aDeltaTime)
+{
+	AActor::Update(aDeltaTime);
+
+
+}
+
+const std::shared_ptr<CameraComponent> ACamera::GetCameraComponent() const
+{
+	return mCameraComponent;
 }

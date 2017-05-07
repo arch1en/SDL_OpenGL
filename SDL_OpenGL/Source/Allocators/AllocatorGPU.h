@@ -30,11 +30,16 @@ public:
 	bool AllocateStaticMesh(MeshBase* aMesh);
 	void AllocateTextureData(MeshBase* aMesh);
 
+	GLuint GetActiveVAO() const;
+
 private:
+
+	GLuint mActiveVAO;
 
 	std::vector<GLuint>		mVAOs;	// Vertex Array Object
 	std::vector<GLuint>		mVBOs;	// Vertex Buffer Object
 	std::vector<GLuint>		mTBOs;	// Texture Buffer Object
 	std::vector<GLuint>		mEBOs;	// Element Buffer OBject
 
+	void SetActiveVAO(GLuint aValue);
 };

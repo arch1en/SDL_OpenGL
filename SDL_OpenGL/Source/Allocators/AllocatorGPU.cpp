@@ -13,9 +13,18 @@
 
 AllocatorGPU::~AllocatorGPU()
 {
-	glDeleteBuffers(mVBOs.size(), &mVBOs[0]);
-	glDeleteBuffers(mEBOs.size(), &mEBOs[0]);
-	glDeleteVertexArrays(mVAOs.size(), &mVAOs[0]);
+	if (mVBOs.size() > 0)
+	{
+		glDeleteBuffers(mVBOs.size(), &mVBOs[0]);
+	}
+	if (mEBOs.size() > 0)
+	{
+		glDeleteBuffers(mEBOs.size(), &mEBOs[0]);
+	}
+	if (mVAOs.size() > 0)
+	{
+		glDeleteVertexArrays(mVAOs.size(), &mVAOs[0]);
+	}
 	Log(DebugType::EDT_Notice, "AllocatorGPU::Dtor - All buffers are destroyed.");
 }
 
@@ -25,6 +34,7 @@ void AllocatorGPU::Initialize()
 	glGenVertexArrays(1, &NewVAO);
 	glBindVertexArray(NewVAO);
 	mVAOs.push_back(NewVAO);
+	SetActiveVAO(NewVAO);
 }
 
 bool AllocatorGPU::AllocateStaticMesh(MeshBase* aMesh)
@@ -45,8 +55,17 @@ bool AllocatorGPU::AllocateStaticMesh(MeshBase* aMesh)
 		Log(DebugType::EDT_Error, "Index Buffer is empty.");
 		return false;
 	}
-	if (ColorBufferSize == 0) Log(DebugType::EDT_Warning, "Color Buffer is empty.");
-	if (ElementBufferSize == 0) Log(DebugType::EDT_Error, "Element Buffer is empty.");
+	if (ColorBufferSize == 0)
+	{
+		Log(DebugType::EDT_Warning, "Color Buffer is empty.");
+		return false;
+	}
+	if (ElementBufferSize == 0)
+	{
+		Log(DebugType::EDT_Error, "Element Buffer is empty.");
+		return false;
+	}
+
 	if (TextureBufferSize == 0)
 	{
 		Log(DebugType::EDT_Notice, "Texture Buffer is empty.");
@@ -97,4 +116,14 @@ bool AllocatorGPU::AllocateStaticMesh(MeshBase* aMesh)
 	mEBOs.push_back(NewEBO);
 
 	return true;
+}
+
+void AllocatorGPU::SetActiveVAO(GLuint aValue)
+{
+	mActiveVAO = aValue;
+}
+
+GLuint AllocatorGPU::GetActiveVAO() const
+{
+	return mActiveVAO;
 }

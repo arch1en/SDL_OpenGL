@@ -131,6 +131,13 @@ int ConfigLoader::LoadInputData(const std::string& InFileName, const std::string
 				}
 
 				std::transform(Tokens[1].begin(), Tokens[1].end(), Tokens[1].begin(), ::tolower);
+				if (Tokens[1].size() > 1)
+				{
+					char Key = 0;
+					an::TranslateInputKeyToSDLKeycode(Tokens[1], Key);
+					Tokens[1].clear();
+					Tokens[1] = Key;
+				}
 				OutResult.insert(std::pair<char, std::string>(*Tokens[1].c_str(), Tokens[0]));
 
 			}

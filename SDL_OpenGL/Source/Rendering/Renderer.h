@@ -9,10 +9,10 @@
 ////////////////////////////////////////
 #pragma once
 
-#include "../stdafx.h"
+#include "stdafx.h"
 #include <stack>
 
-#include "Mesh/MeshBase.h"
+#include "Components/MeshComponent.h"
 
 class Renderer
 {
@@ -23,8 +23,13 @@ public:
 	/**
 	*   Draws meshes that are on RenderingStack.
 	*/
-	void DrawMeshes();
-	void AddMeshToDraw(std::shared_ptr<MeshBase> InMesh);
+	void DrawMeshes(const GLsizei aVAOIndex, 
+		const glm::mat4& aViewMatrix,
+		const GLint aModelUniformLocation,
+		const GLint aViewUniformLocation,
+		const GLint aProjectionUniformLocation);
+
+	void AddMeshToDraw(std::shared_ptr<MeshComponent> InMesh);
 
 private:
 
@@ -32,6 +37,6 @@ private:
 	GLsizei	ParametersInOneVector;
 	
 	// Keeps all objects that needs to be rendered on the scene.
-	std::vector<std::shared_ptr<MeshBase>> Meshes;
+	std::vector<std::shared_ptr<MeshComponent>> Meshes;
 
 };

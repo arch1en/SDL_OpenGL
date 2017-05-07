@@ -16,7 +16,7 @@ public:
 	Class()
 		: ClassID{staticClassID++}
 	{ }
-	
+	virtual ~Class() {}
 
 
 private:

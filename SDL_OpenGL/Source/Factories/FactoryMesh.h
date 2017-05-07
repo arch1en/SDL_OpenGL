@@ -4,6 +4,7 @@
 //  @author     : Artur Ostrowski
 //  @usage      : Handles creation of new meshes onto the scene.
 //  @version    : 1.0.0
+//	@tags		: [Static]
 //
 ////////////////////////////////////////
 #pragma once
@@ -27,19 +28,24 @@ enum class MeshType : uint8_t
 class FactoryMesh
 {
 public:
-	FactoryMesh(std::shared_ptr<Renderer> InRenderer);
+	FactoryMesh();
 	~FactoryMesh() {}
 
 	void Initialize();
+	static FactoryMesh* GetInstance();
 
-	std::shared_ptr<MeshBase> NewMesh(MeshType InMeshType);
-	void DestroyMesh(std::shared_ptr<MeshBase> aMesh);
+	void SetRenderer(std::shared_ptr<Renderer> aRenderer);
+	void SetAllocatorGPU(std::shared_ptr<AllocatorGPU> aAllocator);
+
+	std::shared_ptr<MeshBase> NewMesh(std::shared_ptr<MeshComponent> aComponent, std::string InMeshType);
+	void DestroyMesh(std::shared_ptr<MeshComponent> aMesh);
 
 private:
 
-	AllocatorGPU				mAllocatorGPU;
-	std::shared_ptr<Renderer>	mRenderer;
+	std::shared_ptr<Renderer>		mRenderer;
+	std::shared_ptr<AllocatorGPU>	mAllocatorGPU;
 
-	std::vector<std::shared_ptr<MeshBase>> mCreatedMeshes;
+
+	std::vector<std::shared_ptr<MeshComponent>> mCreatedMeshes;
 
 };

@@ -75,5 +75,30 @@ namespace an
 			return "";
 		}
 	}
+
+	void TranslateInputKeyToSDLKeycode(const std::string& aKey, char& aOutChar)
+	{
+		if (aKey.compare("space") == 0) { aOutChar = SDLK_SPACE; return; }
+		if (aKey.compare("lshift") == 0) { aOutChar = SDLK_LSHIFT; return; }
+		if (aKey.compare("rshift") == 0) { aOutChar = SDLK_RSHIFT; return; }
+		if (aKey.compare("lctrl") == 0) { aOutChar = SDLK_LCTRL; return; }
+		if (aKey.compare("rctrl") == 0) { aOutChar = SDLK_RCTRL; return; }
+		if (aKey.compare("lalt") == 0) { aOutChar = SDLK_LALT; return; }
+		if (aKey.compare("ralt") == 0) { aOutChar = SDLK_RALT; return; }
+		if (aKey.compare("enter") == 0 || aKey.compare("return") == 0) { aOutChar = SDLK_RETURN; return; }
+		if (aKey.compare("esc") == 0 || aKey.compare("escape") == 0) { aOutChar = SDLK_ESCAPE; return; }
+		if (aKey.compare("f1") == 0) { aOutChar = SDLK_F1; return; }
+		if (aKey.compare("f2") == 0) { aOutChar = SDLK_F2; return; }
+		if (aKey.compare("f3") == 0) { aOutChar = SDLK_F3; return; }
+		if (aKey.compare("f4") == 0) { aOutChar = SDLK_F4; return; }
+		if (aKey.compare("f5") == 0) { aOutChar = SDLK_F5; return; }
+		if (aKey.compare("f6") == 0) { aOutChar = SDLK_F6; return; }
+		if (aKey.compare("f7") == 0) { aOutChar = SDLK_F7; return; }
+		if (aKey.compare("f8") == 0) { aOutChar = SDLK_F8; return; }
+		if (aKey.compare("f9") == 0) { aOutChar = SDLK_F9; return; }
+		if (aKey.compare("f10") == 0) { aOutChar = SDLK_F10; return; }
+		if (aKey.compare("f11") == 0) { aOutChar = SDLK_F11; return; }
+		if (aKey.compare("f12") == 0) { aOutChar = SDLK_F12; return; }
+	}
 }
 

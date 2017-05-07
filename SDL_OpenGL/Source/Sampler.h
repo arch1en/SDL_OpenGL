@@ -6,9 +6,8 @@
 
 namespace Sampler
 {
-	static bool LoadTextureImage(std::string path)
+	static bool LoadTextureImage(std::string path, int& aOutWidth, int& aOutHeight, unsigned char*& aOutImageData)
 	{
-		int width, height;
 		std::ifstream file(path);
 
 		if (!file.good())
@@ -20,7 +19,7 @@ namespace Sampler
 
 		file.close();
 
-		unsigned char* image = SOIL_load_image(path.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
+		unsigned char* image = SOIL_load_image(path.c_str(), &aOutWidth, &aOutHeight, 0, SOIL_LOAD_RGB);
 
 		if (image[0] == 0)
 		{
@@ -33,8 +32,8 @@ namespace Sampler
 			GL_TEXTURE_2D,		// Texture target
 			0,					// Level of Detail
 			GL_RGBA,				// Internal pixel format (format in which pixels will be stored in GPU)
-			width,				// Width of an image
-			height,				// Height of an image
+				aOutWidth,				// Width of an image
+				aOutHeight,				// Height of an image
 			0,					// Dunno, but always 0
 			GL_RGBA,				// Format of the pixels in the array that will be loaded
 			GL_UNSIGNED_BYTE,	// Datatype of the coordinates in the array that will be loaded

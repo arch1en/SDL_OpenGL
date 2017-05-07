@@ -27,7 +27,13 @@ $RECYCLE.BIN/
 .DS_Store
 .AppleDouble
 .LSOverride
-
+.localhistory
+*.obj
+*.tlog
+*.exe
+*.ilk
+*.pdb
+*.log
 # Thumbnails
 ._*
 

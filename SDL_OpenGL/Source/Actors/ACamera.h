@@ -13,15 +13,22 @@
 #include "AActor.h"
 #include "Components/CameraComponent.h"
 #include "Components/InputComponent.h"
+#include "Components/MovementComponent.h"
 
 class ACamera : public AActor
 {
 public:
 	ACamera();
+	~ACamera();
+
+	const std::shared_ptr<CameraComponent> GetCameraComponent() const;
 
 private:
-	CameraComponent mCameraComponent;
-	InputComponent mInputComponent;
+	virtual void Update(float aDeltaTime) override;
+
+	std::shared_ptr<CameraComponent>	mCameraComponent;
+	std::shared_ptr<InputComponent>		mInputComponent;
+	std::shared_ptr<MovementComponent>	mMovementComponent;
 
 	void InputListener(const KeyData& aKeyData);
 };
