@@ -52,8 +52,18 @@ public:
 		mContinuousDelegates.push_back(Delegate);
 	}
 
+	template <typename ClassType>
+	void BindMouseMotion(const std::string& aLayerName, ClassType* aReference, void(ClassType::*aTMethod)(const MouseData&))
+	{
+		std::function<void(const MouseData&)> Delegate = std::bind(aTMethod, aReference, std::placeholders::_1);
+		RegisterToLayer(aLayerName);
+		mMouseMotionDelegates.push_back(Delegate);
+	}
+
 	inline std::vector<std::function<void(const KeyData&)>>& GetIntermittentDelegates() { return mIntermittentDelegates; }
 	inline std::vector<std::function<void(const KeyData&)>>& GetContinuousDelegates() { return mContinuousDelegates; }
+	inline std::vector<std::function<void(const MouseData&)>>& GetMouseMotionDelegates() { return mMouseMotionDelegates; }
+
 protected:
 
 	void Update(float aDeltaTime) override {}
@@ -61,6 +71,7 @@ protected:
 private:
 	std::vector<std::function<void(const KeyData&)>>	mContinuousDelegates;
 	std::vector<std::function<void(const KeyData&)>>	mIntermittentDelegates;
+	std::vector<std::function<void(const MouseData&)>>	mMouseMotionDelegates;
 	std::vector<std::string>						mLayersBoundTo;
 
 	void RegisterToLayer(const std::string& aLayerName)

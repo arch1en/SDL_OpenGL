@@ -43,6 +43,14 @@ void InputModule::Update(SDL_Event& aEvent)
 			Iter.second->PrepareAndBroadcastIntermittentCommand(aEvent.key.keysym.sym);
 		}
 	}
+
+	if (aEvent.type == SDL_MOUSEMOTION)
+	{
+		for (auto& Iter : mActiveLayers)
+		{
+			Iter.second->BroadcastMouseMotionCommand(mLastMouseX, mLastMouseY);
+		}
+	}
 }
 
 void InputModule::Update()

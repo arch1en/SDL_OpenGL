@@ -31,4 +31,5 @@ private:
 	std::shared_ptr<MovementComponent>	mMovementComponent;
 
 	void InputListener(const KeyData& aKeyData);
+	void MouseMotionListener(const MouseData& aMouseData);
 };

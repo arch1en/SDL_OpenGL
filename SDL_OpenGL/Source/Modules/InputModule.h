@@ -71,4 +71,10 @@ private:
 
 	//	void SetCurrentLayer(std::shared_ptr<InputLayer> InLayer, InputLayerType InLayerType);
 
+	////////////////////////////////////////
+	//	Mouse
+	////////////////////////////////////////
+
+	int mLastMouseX;
+	int mLastMouseY;
 };

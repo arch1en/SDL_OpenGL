@@ -16,6 +16,14 @@
 
 class InputComponent;
 
+struct MouseData
+{
+	int	MouseX;
+	int MouseY;
+	int DirectionX;
+	int DirectionY;
+};
+
 struct KeyData
 {
 	char Key;
@@ -36,6 +44,7 @@ public:
 	void PrepareAndBroadcastIntermittentCommand(const SDL_Keycode& aInputKey);
 	void BroadcastIntermittentCommand(const KeyData& aKeyData);
 	void BroadcastContinuousCommand(const KeyData& aKeyData);
+	void BroadcastMouseMotionCommand(int& aLastMouseX, int& aLastMouseY);
 
 	std::string FindCommandByKey(const char& aKey);
 	const std::string GetCategory() { return mCategory; }

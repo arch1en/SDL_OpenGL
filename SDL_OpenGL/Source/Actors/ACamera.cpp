@@ -31,6 +31,7 @@ ACamera::ACamera()
 	}
 
 	mInputComponent->BindContinuous("Input.Scene", this, &ACamera::InputListener);
+	mInputComponent->BindMouseMotion("Input.Scene", this, &ACamera::MouseMotionListener);
 	mMovementComponent->SetSpeed(1.f);
 }
 
@@ -61,6 +62,11 @@ void ACamera::InputListener(const KeyData& aKeyData)
 	}
 
 	mWorldPosition += mMovementComponent->GetCalculatedMovement();
+}
+
+void ACamera::MouseMotionListener(const MouseData& aMouseData)
+{
+
 }
 
 void ACamera::Update(float aDeltaTime)

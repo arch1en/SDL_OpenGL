@@ -117,6 +117,27 @@ void InputLayer::BroadcastContinuousCommand(const KeyData& aKeyData)
 	}
 }
 
+void InputLayer::BroadcastMouseMotionCommand(int& aLastMouseX, int& aLastMouseY)
+{
+	int MouseX = 0;
+	int MouseY = 0;
+
+	SDL_GetMouseState(&MouseX, &MouseY);
+
+	MouseData Data{ MouseX, MouseY, MouseX - aLastMouseX, MouseY - aLastMouseY };
+
+	for (auto& Component : mBoundComponents)
+	{
+		for (auto& Delegate : Component->GetMouseMotionDelegates())
+		{
+			Delegate(Data);
+		}
+	}
+
+	aLastMouseX = MouseX;
+	aLastMouseY = MouseY;
+}
+
 bool InputLayer::CanBroadcastCommand(const std::string& aCommand)
 {
 	return aCommand.size() > 0;
