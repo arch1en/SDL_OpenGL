@@ -209,7 +209,7 @@ void AppMain::Update(double aDeltaTime)
 {
 	for (const auto& Iter : mActors)
 	{	
-		Iter->Update(aDeltaTime);
+		Iter->Update((float)aDeltaTime);
 	}
 }
 

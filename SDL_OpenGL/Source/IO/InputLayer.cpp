@@ -128,8 +128,11 @@ void InputLayer::BroadcastMouseMotionCommand(int& aLastMouseX, int& aLastMouseY)
 
 	for (auto& Component : mBoundComponents)
 	{
+		Component->mLastMousePosition = glm::vec2{ aLastMouseX, aLastMouseY };
+
 		for (auto& Delegate : Component->GetMouseMotionDelegates())
 		{
+
 			Delegate(Data);
 		}
 	}

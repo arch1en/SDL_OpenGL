@@ -9,18 +9,18 @@
 #include "AActor.h"
 
 #include "Components/BaseComponent.h"
+#include "Components/ActorComponent.h"
 
 AActor::AActor()
 	: Class()
-	, mWorldPosition{ glm::vec3(0.0f, 0.0f, 0.0f) }
-	, mWorldRotation{ glm::quat(0.0f, 0.0f, 0.0f, 1.0f) }
-	, mUpVector{ glm::vec3(0.f, 1.f, 0.f) }
-	, mDirection{}
-{}
+	, mRootComponent{nullptr}
+{
+	mRootComponent = new ActorComponent(this);
+}
 
 AActor::~AActor()
 {
-
+	delete mRootComponent;
 }
 
 void AActor::Update(float aDeltaTime)
@@ -31,27 +31,61 @@ void AActor::Update(float aDeltaTime)
 	}
 }
 
-glm::vec3 AActor::GetWorldPosition() const
+void AActor::SetWorldPosition(const glm::vec3 aPosition)
 {
-	return mWorldPosition;
+	mRootComponent ? mRootComponent->SetWorldPosition(aPosition) : Log(DebugType::EDT_Fatal, "Cannot perform SetWorldPosition, RootComponent invalid !");
 }
 
-glm::quat AActor::GetWorldRotation() const
+void AActor::SetWorldRotation(const glm::quat aRotation)
 {
-	return mWorldRotation;
+	mRootComponent ? mRootComponent->SetWorldRotation(aRotation) : Log(DebugType::EDT_Fatal, "Cannot perform SetWorldRotation, RootComponent invalid !");
 }
 
-glm::vec3 AActor::GetUpVector() const
+void AActor::SetFacingDirection(const glm::vec3 aDirection)
 {
-	return mUpVector;
+	mRootComponent ? mRootComponent->SetFacingDirection(aDirection) : Log(DebugType::EDT_Fatal, "Cannot perform SetFacingDirection, RootComponent invalid !");
 }
 
-glm::vec3 AActor::GetDirection() const
+const glm::vec3 AActor::GetWorldPosition() const
 {
-	return mDirection;
+	if (mRootComponent == nullptr)
+	{
+		Log(DebugType::EDT_Fatal, "Cannot perform GetWorldPosition, RootComponent invalid !");
+		return glm::vec3();
+	}
+
+	return mRootComponent->GetWorldPosition();
 }
 
-glm::vec3 AActor::GetForwardVector() const
+const glm::quat AActor::GetWorldRotation() const
 {
-	return glm::vec3(0.0f, 0.0f, -1.0f);
+	if (mRootComponent == nullptr)
+	{
+		Log(DebugType::EDT_Fatal, "Cannot perform GetWorldRotation, RootComponent invalid !");
+		return glm::quat();
+	}
+
+	return mRootComponent->GetWorldRotation();
+}
+
+const glm::vec3 AActor::GetUpVector() const
+{
+	if (mRootComponent == nullptr)
+	{
+		Log(DebugType::EDT_Fatal, "Cannot perform GetUpVector, RootComponent invalid !");
+		return glm::vec3();
+	}
+
+	return mRootComponent->GetUpVector();
+}
+
+const glm::vec3 AActor::GetForwardVector() const
+{
+	if (mRootComponent == nullptr)
+	{
+		Log(DebugType::EDT_Fatal, "Cannot perform GetForwardVector, RootComponent invalid !");
+		return glm::vec3();
+	}
+
+	return mRootComponent->GetForwardVector();;
 }

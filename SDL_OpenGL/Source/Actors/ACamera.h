@@ -12,8 +12,8 @@
 
 #include "AActor.h"
 #include "Components/CameraComponent.h"
-#include "Components/InputComponent.h"
 #include "Components/MovementComponent.h"
+#include "Components/InputComponent.h"
 
 class ACamera : public AActor
 {

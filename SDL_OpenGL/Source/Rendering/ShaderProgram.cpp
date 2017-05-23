@@ -142,7 +142,7 @@ bool ShaderProgram::CheckShaderStatus(GLuint shaderID)
 		shaderType == GL_VERTEX_SHADER ? shaderTypeString = "Vertex" :
 		shaderTypeString = "Unknown";
 
-		printf("%s shader Log: \n\n%s\n", shaderTypeString, buffer);
+		printf("%s shader Log: \n\n%s\n", shaderTypeString.c_str(), buffer);
 		SDL_LogMessage(SDL_LOG_CATEGORY_RENDER, SDL_LOG_PRIORITY_WARN, "Error, cannot compile %s shader : %d\n", shaderTypeString, m_fragmentShader);
 
 		delete[] buffer;

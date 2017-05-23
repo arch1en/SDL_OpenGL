@@ -61,12 +61,36 @@ void ACamera::InputListener(const KeyData& aKeyData)
 		mMovementComponent->SetDirection(glm::vec3(1.f, 0.f, 0.f));
 	}
 
-	mWorldPosition += mMovementComponent->GetCalculatedMovement();
+	SetWorldPosition(GetWorldPosition() + mMovementComponent->GetCalculatedMovement());
 }
 
 void ACamera::MouseMotionListener(const MouseData& aMouseData)
 {
+	const glm::vec2& LastMousePosition = mInputComponent->GetLastMousePosition();
 
+	GLfloat OffsetX = GLfloat(aMouseData.DirectionX);
+	GLfloat OffsetY = GLfloat(aMouseData.DirectionY * -1.f);
+
+	OffsetX *= mInputComponent->GetMouseSensitivity();
+	OffsetY *= mInputComponent->GetMouseSensitivity();
+
+	glm::quat NewRotation = GetWorldRotation();;
+
+	NewRotation.y += OffsetX;
+	NewRotation.x += OffsetY;
+
+	if (NewRotation.x > 89.0f) NewRotation.x = 89.0f;
+	if (NewRotation.x < -89.0f) NewRotation.x = -89.0f;
+
+	glm::vec3 NewFrontVector;
+
+	NewFrontVector.x = cos(glm::radians(NewRotation.y)) * cos(glm::radians(NewRotation.x));
+	NewFrontVector.y = sin(glm::radians(NewRotation.x));
+	NewFrontVector.z = sin(glm::radians(NewRotation.y)) * cos(glm::radians(NewRotation.x));
+
+	// [Rotation] ToDo : Rotation should also determine a facing direction !
+	SetWorldRotation(NewRotation);
+	SetFacingDirection(NewFrontVector);
 }
 
 void ACamera::Update(float aDeltaTime)

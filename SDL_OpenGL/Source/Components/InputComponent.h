@@ -22,19 +22,14 @@ class Class;
 
 class InputComponent : public BaseComponent
 {
+	friend class InputLayer;
+
 public:
 	InputComponent() 
 		: BaseComponent()
 	{  }
 
-	~InputComponent()
-	{
-		for (const std::string& Layer : mLayersBoundTo)
-		{
-			InputModule::GetSingleton().UnregisterFromLayer(this, Layer);
-		}
-	}
-	  
+	~InputComponent();
 
 	template <typename ClassType>
 	void BindIntermittent(const std::string& aLayerName, ClassType* aReference, void(ClassType::*aTMethod)(const KeyData&))
@@ -63,30 +58,24 @@ public:
 	inline std::vector<std::function<void(const KeyData&)>>& GetIntermittentDelegates() { return mIntermittentDelegates; }
 	inline std::vector<std::function<void(const KeyData&)>>& GetContinuousDelegates() { return mContinuousDelegates; }
 	inline std::vector<std::function<void(const MouseData&)>>& GetMouseMotionDelegates() { return mMouseMotionDelegates; }
+	inline const glm::vec2&	GetLastMousePosition() const { return mLastMousePosition; }
+	inline const float	GetMouseSensitivity() const { return mMouseSensitivity; }
+
 
 protected:
 
 	void Update(float aDeltaTime) override {}
 
 private:
+
+	float			mMouseSensitivity = 0.1f;
+	glm::vec2		mLastMousePosition = glm::vec2{ 0, 0 };
+
 	std::vector<std::function<void(const KeyData&)>>	mContinuousDelegates;
 	std::vector<std::function<void(const KeyData&)>>	mIntermittentDelegates;
 	std::vector<std::function<void(const MouseData&)>>	mMouseMotionDelegates;
-	std::vector<std::string>						mLayersBoundTo;
+	std::vector<std::string>							mLayersBoundTo;
 
-	void RegisterToLayer(const std::string& aLayerName)
-	{
-		bool RegisterResult = InputModule::GetSingleton().RegisterToLayer(this, aLayerName);
+	void RegisterToLayer(const std::string& aLayerName);
 
-
-		if (RegisterResult == true)
-		{
-			auto& Result = std::find(mLayersBoundTo.begin(), mLayersBoundTo.end(), aLayerName);
-
-			if (Result == mLayersBoundTo.end())
-			{
-				mLayersBoundTo.push_back(aLayerName);
-			}
-		}
-	}
 };
