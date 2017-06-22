@@ -18,7 +18,7 @@ struct PolygonData
 	GLint		NumIndices;
 	std::vector<GLfloat>	Color;
 	GLint		NumColor;
-	std::vector<GLint>		Elements;
+	std::vector<GLuint>	Elements;
 	GLint		NumElements;
 	std::vector<GLfloat>	TextureCoordinates;
 	GLint		NumTextureCoordinates;

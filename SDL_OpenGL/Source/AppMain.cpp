@@ -86,13 +86,13 @@ bool AppMain::Init()
 	SDL_GL_SwapWindow(Window);
 
 	// Set the area to view in frustum.
-	glViewport(0, 0, 640, 480);
+	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 	// Smooth the color
 	glShadeModel(GL_SMOOTH);
 
 	// 2D rendering
-	glMatrixMode(GL_PROJECTION);
+	glMatrixMode(GL_MODELVIEW);
 
 	// Reset viewport position to the origin.
 	glLoadIdentity();
@@ -117,6 +117,7 @@ bool AppMain::InitGL()
 	}
 
 	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_ALWAYS);
 
 	mAllocatorGPU = std::make_shared<AllocatorGPU>();
 	mAllocatorGPU->Initialize();
@@ -152,7 +153,7 @@ bool AppMain::InitGL()
 	Loader.LoadConfigData("InputProperties", "Input.Scene", test);
 	// ~TEST
 
-	Actor = mFactoryActor.NewActor("triangle");
+	Actor = mFactoryActor.NewActor("cube");
 
 	ErrorHandle("VertexAttribPointer : ");
 
@@ -215,7 +216,7 @@ void AppMain::Update(double aDeltaTime)
 
 void AppMain::Render()
 {
-	glClearColor(0.f, 0.f, 0.f, 1.f);
+	glClearColor(0.1f, 0.1f, 0.1f, 1.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Last binded vertex array will be drawn by OpenGL, thus we will bind VAO

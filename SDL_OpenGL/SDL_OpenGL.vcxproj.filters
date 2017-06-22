@@ -144,6 +144,9 @@
     <ClCompile Include="Source\Actors\PrimitiveActors\ATriangle.cpp">
       <Filter>Source\Actors\PrimitiveActors</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Actors\PrimitiveActors\ACube.cpp">
+      <Filter>Source\Actors\PrimitiveActors</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AppMain.h">
@@ -237,6 +240,9 @@
       <Filter>Source\Factories</Filter>
     </ClInclude>
     <ClInclude Include="Source\Actors\PrimitiveActors\ATriangle.h">
+      <Filter>Source\Actors\PrimitiveActors</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Actors\PrimitiveActors\ACube.h">
       <Filter>Source\Actors\PrimitiveActors</Filter>
     </ClInclude>
   </ItemGroup>

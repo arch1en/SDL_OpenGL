@@ -32,7 +32,9 @@ ACamera::ACamera()
 
 	mInputComponent->BindContinuous("Input.Scene", this, &ACamera::InputListener);
 	mInputComponent->BindMouseMotion("Input.Scene", this, &ACamera::MouseMotionListener);
-	mMovementComponent->SetSpeed(1.f);
+	mInputComponent->SetGrabInput(true);
+	mMovementComponent->SetSpeed(0.1f);
+	SetWorldPosition(glm::vec3(3.f, 0.f, 5.f));
 }
 
 ACamera::~ACamera()
@@ -46,19 +48,19 @@ void ACamera::InputListener(const KeyData& aKeyData)
 {
 	if (aKeyData.Command.compare("MoveForward") == 0)
 	{
-		mMovementComponent->SetDirection(glm::vec3(0.f, 0.f, -1.f));
+		mMovementComponent->SetDirection(GetForwardVector());
 	}
 	else if (aKeyData.Command.compare("MoveBackwards") == 0)
 	{
-		mMovementComponent->SetDirection(glm::vec3(0.f, 0.f, 1.f));
+		mMovementComponent->SetDirection(GetForwardVector() * -1.f);
 	}
 	else if (aKeyData.Command.compare("StrafeLeft") == 0)
 	{
-		mMovementComponent->SetDirection(glm::vec3(-1.f, 0.f, 0.f));
+		mMovementComponent->SetDirection(GetRightVector() * -1.f);
 	}
 	else if (aKeyData.Command.compare("StrafeRight") == 0)
 	{
-		mMovementComponent->SetDirection(glm::vec3(1.f, 0.f, 0.f));
+		mMovementComponent->SetDirection(GetRightVector());
 	}
 
 	SetWorldPosition(GetWorldPosition() + mMovementComponent->GetCalculatedMovement());
@@ -79,14 +81,14 @@ void ACamera::MouseMotionListener(const MouseData& aMouseData)
 	NewRotation.y += OffsetX;
 	NewRotation.x += OffsetY;
 
-	if (NewRotation.x > 89.0f) NewRotation.x = 89.0f;
-	if (NewRotation.x < -89.0f) NewRotation.x = -89.0f;
+	//if (NewRotation.x > 89.0f) NewRotation.x = 89.0f;
+	//if (NewRotation.x < -89.0f) NewRotation.x = -89.0f;
 
 	glm::vec3 NewFrontVector;
 
-	NewFrontVector.x = cos(glm::radians(NewRotation.y)) * cos(glm::radians(NewRotation.x));
-	NewFrontVector.y = sin(glm::radians(NewRotation.x));
-	NewFrontVector.z = sin(glm::radians(NewRotation.y)) * cos(glm::radians(NewRotation.x));
+	//NewFrontVector.x = cos(glm::radians(NewRotation.y)) * cos(glm::radians(NewRotation.x));
+	//NewFrontVector.y = sin(glm::radians(NewRotation.x));
+	//NewFrontVector.z = sin(glm::radians(NewRotation.y)) * cos(glm::radians(NewRotation.x));
 
 	// [Rotation] ToDo : Rotation should also determine a facing direction !
 	SetWorldRotation(NewRotation);

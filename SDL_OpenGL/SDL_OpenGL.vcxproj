@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="Source\Actors\AActor.cpp" />
     <ClCompile Include="Source\Actors\ACamera.cpp" />
+    <ClCompile Include="Source\Actors\PrimitiveActors\ACube.cpp" />
     <ClCompile Include="Source\Actors\PrimitiveActors\ATriangle.cpp" />
     <ClCompile Include="Source\Allocators\AllocatorGPU.cpp" />
     <ClCompile Include="Source\AppMain.cpp" />
@@ -45,6 +46,7 @@
   <ItemGroup>
     <ClInclude Include="Source\Actors\AActor.h" />
     <ClInclude Include="Source\Actors\ACamera.h" />
+    <ClInclude Include="Source\Actors\PrimitiveActors\ACube.h" />
     <ClInclude Include="Source\Actors\PrimitiveActors\ATriangle.h" />
     <ClInclude Include="Source\Allocators\AllocatorGPU.h" />
     <ClInclude Include="Source\AppMain.h" />

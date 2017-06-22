@@ -48,7 +48,7 @@ bool AllocatorGPU::AllocateStaticMesh(MeshBase* aMesh)
 	GLsizeiptr ElementBufferSize = sizeof(aMesh->mPolygonData.Elements[0]) * aMesh->mPolygonData.NumElements;
 	GLsizeiptr TextureBufferSize = sizeof(aMesh->mPolygonData.TextureCoordinates[0]) * aMesh->mPolygonData.NumTextureCoordinates;
 
-	GLsizeiptr CombinedBufferSize = IndicesBufferSize + ColorBufferSize;
+	GLsizeiptr CombinedBufferSize = IndicesBufferSize + ColorBufferSize + TextureBufferSize;
 
 	if (IndicesBufferSize == 0)
 	{

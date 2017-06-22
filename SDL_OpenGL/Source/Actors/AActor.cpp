@@ -87,5 +87,16 @@ const glm::vec3 AActor::GetForwardVector() const
 		return glm::vec3();
 	}
 
-	return mRootComponent->GetForwardVector();;
+	return mRootComponent->GetForwardVector();
+}
+
+const glm::vec3 AActor::GetRightVector() const
+{
+	if (mRootComponent == nullptr)
+	{
+		Log(DebugType::EDT_Fatal, "Cannot perform GetRightVector, RootComponent invalid !");
+		return glm::vec3();
+	}
+
+	return mRootComponent->GetRightVector();
 }

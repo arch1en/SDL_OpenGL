@@ -61,6 +61,7 @@ public:
 	inline const glm::vec2&	GetLastMousePosition() const { return mLastMousePosition; }
 	inline const float	GetMouseSensitivity() const { return mMouseSensitivity; }
 
+	void SetGrabInput(bool aState);
 
 protected:
 
@@ -68,7 +69,7 @@ protected:
 
 private:
 
-	float			mMouseSensitivity = 0.1f;
+	float			mMouseSensitivity = 0.01f;
 	glm::vec2		mLastMousePosition = glm::vec2{ 0, 0 };
 
 	std::vector<std::function<void(const KeyData&)>>	mContinuousDelegates;

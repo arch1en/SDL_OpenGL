@@ -21,7 +21,7 @@ public:
 	ActorComponent(AActor* aOwner )
 		: BaseComponent()
 		, mWorldPosition{ glm::vec3(0.0f, 0.0f, 0.0f) }
-		, mWorldRotation{ glm::quat(0.0f, 0.0f, -90.0f, 0.0f) }
+		, mWorldRotation{ glm::quat(0.0f, 0.0f, 0.0f, 0.0f) }
 		, mRelativePosition{ glm::vec3(0.0f, 0.0f, 0.0f) }
 		, mRelativeRotation{ glm::quat(0.0f, 0.0f, 0.0f, 1.0f) }
 		, mUpVector{ glm::vec3(0.0f, 1.0f, 0.0f)}
@@ -43,6 +43,7 @@ public:
 
 	const glm::vec3 GetUpVector() const;
 	const glm::vec3 GetForwardVector() const;
+	const glm::vec3 GetRightVector() const;
 	
 	AActor* GetOwner() const;
 

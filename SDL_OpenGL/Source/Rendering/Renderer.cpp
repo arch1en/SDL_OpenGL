@@ -11,7 +11,7 @@
 Renderer::Renderer()
 {
 	DrawingMode = GL_TRIANGLES;
-	ParametersInOneVector = 3;
+	ParametersInOneVector = 3 * 12;
 }
 
 Renderer::~Renderer()
@@ -43,7 +43,7 @@ void Renderer::DrawMeshes(const GLsizei aVAOIndex,
 		glUniformMatrix4fv(aViewUniformLocation, 1, GL_FALSE, &aViewMatrix[0][0]);
 
 		glm::mat4 ProjectionMatrix;
-		ProjectionMatrix = glm::perspective(45.0f, (GLfloat)WINDOW_WIDTH / (GLfloat)WINDOW_HEIGHT, 0.1f, 100.0f);
+		ProjectionMatrix = glm::perspective(90.0f, (GLfloat)WINDOW_WIDTH / (GLfloat)WINDOW_HEIGHT, 0.1f, 100.0f);
 		glUniformMatrix4fv(aProjectionUniformLocation, 1, GL_FALSE, &ProjectionMatrix[0][0]);
 
 		glDrawElements(DrawingMode, ParametersInOneVector, GL_UNSIGNED_INT, 0);// &iter->mPolygonData.Elements[0]);

@@ -33,3 +33,8 @@ void InputComponent::RegisterToLayer(const std::string& aLayerName)
 		}
 	}
 }
+
+void InputComponent::SetGrabInput(bool aState)
+{
+	SDL_SetRelativeMouseMode(aState ? SDL_TRUE : SDL_FALSE);
+}

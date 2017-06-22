@@ -60,3 +60,8 @@ const glm::vec3 ActorComponent::GetForwardVector() const
 	return mForwardVector;
 }
 
+const glm::vec3 ActorComponent::GetRightVector() const
+{
+	return glm::normalize(glm::cross(mUpVector, mForwardVector) * -1.f);
+}
+

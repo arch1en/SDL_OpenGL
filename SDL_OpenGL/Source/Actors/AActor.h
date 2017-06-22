@@ -32,6 +32,7 @@ public:
 	const glm::quat GetWorldRotation() const;
 	const glm::vec3 GetUpVector() const;
 	const glm::vec3 GetForwardVector() const;
+	const glm::vec3 GetRightVector() const;
 
 protected:
 

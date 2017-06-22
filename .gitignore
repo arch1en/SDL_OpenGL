@@ -34,6 +34,7 @@ $RECYCLE.BIN/
 *.ilk
 *.pdb
 *.log
+*.VC.db
 # Thumbnails
 ._*
 
@@ -47,3 +48,9 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+#Other
+.gitignore
+*.VC.db
+*.idb
+.gitignore
