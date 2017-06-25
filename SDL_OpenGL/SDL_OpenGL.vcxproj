@@ -74,7 +74,6 @@
     <ClInclude Include="Source\Rendering\Renderer.h" />
     <ClInclude Include="Source\Rendering\ShaderProgram.h" />
     <ClInclude Include="Source\Rendering\Textures\Texture.h" />
-    <ClInclude Include="Source\Sampler.h" />
     <ClInclude Include="Source\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
@@ -125,13 +124,13 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>Source;$(StlIncludeDirectories);..\SDL_OpenGL;Source\Factories;$(ProjectDir)Externals\SDL2_mixer-2.0.0\include;$(ProjectDir)Externals\SDL2_image-2.0.0\include;$(ProjectDir)Externals\SDL\include;$(ProjectDir)Externals\glew-1.12.0\include;$(ProjectDir)Externals\glm;$(ProjectDir)Externals\SOIL\src;$(ProjectDir)Externals\boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Source;$(StlIncludeDirectories);..\SDL_OpenGL;Source\Factories;$(ProjectDir)Externals\SDL2_mixer-2.0.0\include;$(ProjectDir)Externals\SDL2_image-2.0.0\include;$(ProjectDir)Externals\SDL\include;$(ProjectDir)Externals\glew-1.12.0\include;$(ProjectDir)Externals\glm;$(ProjectDir)Externals\STB_Image;$(ProjectDir)Externals\boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)Externals\SDL\lib\x86;$(ProjectDir)Externals\glew-1.12.0\lib\Release\Win32;$(ProjectDir)Externals\SDL2_mixer-2.0.0\lib\x86;$(ProjectDir)Externals\SDL2_image-2.0.0\lib\x86;$(ProjectDir)Externals\glew-1.12.0\lib\Release MX\Win32;$(ProjectDir)Externals\SOIL\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2test.lib;SDL2_image.lib;SDL2_mixer.lib;SOIL.lib;opengl32.lib;glew32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)Externals\SDL\lib\x86;$(ProjectDir)Externals\glew-1.12.0\lib\Release\Win32;$(ProjectDir)Externals\SDL2_mixer-2.0.0\lib\x86;$(ProjectDir)Externals\SDL2_image-2.0.0\lib\x86;$(ProjectDir)Externals\glew-1.12.0\lib\Release MX\Win32;$(ProjectDir)Externals\STB_Image;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2test.lib;SDL2_image.lib;SDL2_mixer.lib;opengl32.lib;glew32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -144,15 +143,15 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>Source;$(StlIncludeDirectories);..\SDL_OpenGL;Source\Factories;$(ProjectDir)Externals\SDL2_mixer-2.0.0\include;$(ProjectDir)Externals\SDL2_image-2.0.0\include;$(ProjectDir)Externals\SDL\include;$(ProjectDir)Externals\glew-1.12.0\include;$(ProjectDir)Externals\glm;$(ProjectDir)Externals\SOIL\src;$(ProjectDir)Externals\boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Source;$(StlIncludeDirectories);..\SDL_OpenGL;Source\Factories;$(ProjectDir)Externals\SDL2_mixer-2.0.0\include;$(ProjectDir)Externals\SDL2_image-2.0.0\include;$(ProjectDir)Externals\SDL\include;$(ProjectDir)Externals\glew-1.12.0\include;$(ProjectDir)Externals\glm;$(ProjectDir)Externals\STB_Image;$(ProjectDir)Externals\boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(ProjectDir)Externals\SDL\lib\x86;$(ProjectDir)Externals\glew-1.12.0\lib\Release\Win32;$(ProjectDir)Externals\SDL2_mixer-2.0.0\lib\x86;$(ProjectDir)Externals\SDL2_image-2.0.0\lib\x86;$(ProjectDir)Externals\glew-1.12.0\lib\Release MX\Win32;$(ProjectDir)Externals\SOIL\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2test.lib;SDL2_image.lib;SDL2_mixer.lib;SOIL.lib;opengl32.lib;glew32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)Externals\SDL\lib\x86;$(ProjectDir)Externals\glew-1.12.0\lib\Release\Win32;$(ProjectDir)Externals\SDL2_mixer-2.0.0\lib\x86;$(ProjectDir)Externals\SDL2_image-2.0.0\lib\x86;$(ProjectDir)Externals\glew-1.12.0\lib\Release MX\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2test.lib;SDL2_image.lib;SDL2_mixer.lib;opengl32.lib;glew32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

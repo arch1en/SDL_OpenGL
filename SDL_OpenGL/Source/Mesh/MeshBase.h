@@ -11,6 +11,7 @@
 
 #include "../stdafx.h"
 #include <memory>
+#include <Rendering\Textures\Texture.h>
 
 struct PolygonData
 {
@@ -38,7 +39,8 @@ class MeshBase
 public:
 	virtual ~MeshBase() {}
 
-	PolygonData mPolygonData;
+	PolygonData		mPolygonData;
+	an::CTexture	mTexture;
 
 protected:
 

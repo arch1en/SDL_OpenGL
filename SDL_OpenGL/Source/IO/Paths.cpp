@@ -9,7 +9,7 @@
 ////////////////////////////////////////
 #include "Paths.h"
 
-Paths::Paths()
+an::Paths::Paths()
 {
 	std::string Path = SDL_GetBasePath();
 	

@@ -10,7 +10,6 @@
 #pragma once
 
 #include "stdafx.h"
-#include "Sampler.h"
 #include "Factories\FactoryMesh.h"
 #include "Factories\FactoryActor.h"
 #include "Rendering\Renderer.h"

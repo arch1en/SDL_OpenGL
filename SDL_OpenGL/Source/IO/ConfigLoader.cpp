@@ -19,7 +19,7 @@ int ConfigLoader::LoadConfigData(const std::string& InFileName, const std::strin
 {
 	std::fstream FStream;
 
-	std::string FilePath(Paths::GetInstance().GetPathConfig() + InFileName + ".ini");
+	std::string FilePath(an::Paths::GetInstance().GetPathConfig() + InFileName + ".ini");
 
 	FStream.open(FilePath);
 
@@ -93,7 +93,7 @@ int ConfigLoader::LoadInputData(const std::string& InFileName, const std::string
 {
 	std::fstream FStream;
 
-	std::string FilePath(Paths::GetInstance().GetPathConfig() + InFileName + ".ini");
+	std::string FilePath(an::Paths::GetInstance().GetPathConfig() + InFileName + ".ini");
 
 	FStream.open(FilePath);
 

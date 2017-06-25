@@ -11,32 +11,36 @@
 
 #include "stdafx.h"
 
-class Paths
+namespace an
 {
-
-public:
-
-	Paths();
-	Paths(const Paths&) = delete;
-	void operator=(const Paths&) = delete;
-
-	static Paths& GetInstance() 
+	class Paths
 	{
-		static Paths Instance;
-		return Instance; 
-	}
 
-	inline std::string GetPathAssets() const { return PathAssets; }
-	inline std::string GetPathConfig() const { return PathConfig; }
-	inline std::string GetPathSourceCode() const { return PathSourceCode; }
-	inline std::string GetPathLogs() const { return PathLogs; }
+	public:
 
-private:
+		Paths();
+		Paths(const Paths&) = delete;
+		void operator=(const Paths&) = delete;
 
-	std::string PathAssets;
-	std::string PathConfig;
-	std::string PathSourceCode;
-	std::string PathLogs;
+		static Paths& GetInstance()
+		{
+			static Paths Instance;
+			return Instance;
+		}
 
-};
+		inline std::string GetPathAssets() const { return PathAssets; }
+		inline std::string GetPathConfig() const { return PathConfig; }
+		inline std::string GetPathSourceCode() const { return PathSourceCode; }
+		inline std::string GetPathLogs() const { return PathLogs; }
+
+	private:
+
+		std::string PathAssets;
+		std::string PathConfig;
+		std::string PathSourceCode;
+		std::string PathLogs;
+
+	};
+
+}
 

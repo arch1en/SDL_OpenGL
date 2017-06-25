@@ -29,6 +29,7 @@ $RECYCLE.BIN/
 .LSOverride
 .localhistory
 *.obj
+*.obj.enc
 *.tlog
 *.exe
 *.ilk

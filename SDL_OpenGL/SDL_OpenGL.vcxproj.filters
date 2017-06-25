@@ -152,9 +152,6 @@
     <ClInclude Include="Source\AppMain.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Sampler.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="Source\stdafx.h">
       <Filter>Source</Filter>
     </ClInclude>

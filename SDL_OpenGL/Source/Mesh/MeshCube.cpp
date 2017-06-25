@@ -8,6 +8,7 @@
 //
 ////////////////////////////////////////
 #include "MeshCube.h"
+#include "IO/Paths.h"
 
 MeshCube::MeshCube()
 {
@@ -48,6 +49,15 @@ MeshCube::MeshCube()
 		0.5f, 1.0f,
 		1.0f, 0.0f,
 	};
+
+
+	an::STextureData Data(
+		an::ETextureWrappingMode::MirroredRepeat,
+		an::ETextureWrappingMode::MirroredRepeat,
+		an::ETextureFilteringMode::Nearest,
+		an::ETextureFilteringMode::Linear);
+
+	//mTexture = an::CTexture(an::Paths::GetInstance().GetPathAssets() + "Textures/cheshire.jpg", Data);
 
 	MeshTag = "PrimitiveCube";
 
