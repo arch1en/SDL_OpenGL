@@ -12,37 +12,51 @@
 
 MeshCube::MeshCube()
 {
-	mPolygonData.NumIndices = 3 * 8;
+	mPolygonData.Indices = {	   
+		// front
+		-1.0, -1.0,  1.0,
+		1.0, -1.0,  1.0,
+		1.0,  1.0,  1.0,
+		-1.0,  1.0,  1.0,
+		// back
+		-1.0, -1.0, -1.0,
+		1.0, -1.0, -1.0,
+		1.0,  1.0, -1.0,
+		-1.0,  1.0, -1.0, };
 
-	mPolygonData.Indices = {	-0.5f, -0.5f,  0.5f,
-								 0.5f, -0.5f,  0.5f,
-								 0.5f,  0.5f,  0.5f,
-								-0.5f,  0.5f,  0.5f,
-								-0.5f, -0.5f, -0.5f,
-								 0.5f, -0.5f, -0.5f,
-								 0.5f,  0.5f, -0.5f,
-								-0.5f,  0.5f, -0.5f, };
+	mPolygonData.Color = {	    
+		// front colors
+		1.0, 0.0, 0.0,
+		0.0, 1.0, 0.0,
+		0.0, 0.0, 1.0,
+		1.0, 1.0, 1.0,
+		// back colors
+		1.0, 0.0, 0.0,
+		0.0, 1.0, 0.0,
+		0.0, 0.0, 1.0,
+		1.0, 1.0, 1.0, };
 
-	mPolygonData.NumColor = 3 * 8;
-
-	mPolygonData.Color = {	1.0f, 0.0f, 0.0f,
-							1.0f, 0.5f, 1.0f,
-							1.0f, 0.0f, 0.5f,
-							1.0f, 0.5f, 0.0f,
-							0.5f, 1.0f, 0.5f,
-							0.5f, 1.0f, 1.0f,
-							0.0f, 1.0f, 0.5f,
-							0.0f, 1.0f, 1.0f };
-
-	mPolygonData.Elements = {	0, 1, 2, 
-							//	1, 2, 3,
-							//	0, 4, 5,
+	mPolygonData.Elements = {			
+		// front
+		0, 1, 2,
+		2, 3, 0,
+		// top
+		1, 5, 6,
+		6, 2, 1,
+		// back
+		7, 6, 5,
+		5, 4, 7,
+		// bottom
+		4, 0, 3,
+		3, 7, 4,
+		// left
+		4, 5, 1,
+		1, 0, 4,
+		// right
+		3, 2, 6,
+		6, 7, 3,
 
 		};
-
-	mPolygonData.NumElements = 3 * 12;
-
-	mPolygonData.NumTextureCoordinates = 0;
 
 	mPolygonData.TextureCoordinates = {
 		0.0f, 0.0f,
@@ -57,7 +71,8 @@ MeshCube::MeshCube()
 		an::ETextureFilteringMode::Nearest,
 		an::ETextureFilteringMode::Linear);
 
-	//mTexture = an::CTexture(an::Paths::GetInstance().GetPathAssets() + "Textures/cheshire.jpg", Data);
+	mTexture = an::CTexture();
+	mTexture.Initiate(an::Paths::GetInstance().GetPathAssets() + "Textures\\cheshire.jpg", Data);
 
 	MeshTag = "PrimitiveCube";
 

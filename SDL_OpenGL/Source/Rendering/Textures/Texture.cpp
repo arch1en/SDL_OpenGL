@@ -44,19 +44,27 @@ void an::CTexture::GenerateTexture(std::string aPath)
 
 	if (LoadTextureImage(aPath, Width, Height, NrChannels, Data) == 0)
 	{
+		GLenum Target = GL_TEXTURE_2D;
+
+		glTexParameteri(Target, GL_TEXTURE_WRAP_S, mData.Wrap_S);
+		glTexParameteri(Target, GL_TEXTURE_WRAP_T, mData.Wrap_T);
+		glTexParameteri(Target, GL_TEXTURE_MIN_FILTER, mData.Filter_Min);
+		glTexParameteri(Target, GL_TEXTURE_MAG_FILTER, mData.Filter_Mag);
+
 		glTexImage2D			// Function starts to load image from coord (0,0). Remember this.
 		(
 			GL_TEXTURE_2D,		// Texture target
 			0,					// Level of Detail
-			GL_RGBA,				// Internal pixel format (format in which pixels will be stored in GPU)
+			GL_RGB,				// Internal pixel format (format in which pixels will be stored in GPU)
 			Width,				// Width of an image
 			Height,				// Height of an image
 			0,					// Dunno, but always 0
-			GL_RGBA,				// Format of the pixels in the array that will be loaded
+			GL_RGB,				// Format of the pixels in the array that will be loaded
 			GL_UNSIGNED_BYTE,	// Datatype of the coordinates in the array that will be loaded
-			Data				// image array
+			(void*)Data				// image array
 		);
 		glGenerateMipmap(GL_TEXTURE_2D);
+		stbi_image_free(Data);
 	}
 	else
 	{

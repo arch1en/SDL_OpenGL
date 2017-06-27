@@ -125,6 +125,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>Source;$(StlIncludeDirectories);..\SDL_OpenGL;Source\Factories;$(ProjectDir)Externals\SDL2_mixer-2.0.0\include;$(ProjectDir)Externals\SDL2_image-2.0.0\include;$(ProjectDir)Externals\SDL\include;$(ProjectDir)Externals\glew-1.12.0\include;$(ProjectDir)Externals\glm;$(ProjectDir)Externals\STB_Image;$(ProjectDir)Externals\boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/D "STB_IMAGE_IMPLEMENTATION" %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -144,6 +145,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>Source;$(StlIncludeDirectories);..\SDL_OpenGL;Source\Factories;$(ProjectDir)Externals\SDL2_mixer-2.0.0\include;$(ProjectDir)Externals\SDL2_image-2.0.0\include;$(ProjectDir)Externals\SDL\include;$(ProjectDir)Externals\glew-1.12.0\include;$(ProjectDir)Externals\glm;$(ProjectDir)Externals\STB_Image;$(ProjectDir)Externals\boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/D "STB_IMAGE_IMPLEMENTATION" %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

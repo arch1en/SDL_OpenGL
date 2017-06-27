@@ -43,10 +43,10 @@ bool AllocatorGPU::AllocateStaticMesh(MeshBase* aMesh)
 	GLuint NewEBO;
 	GLuint NewTBO;
 
-	GLsizeiptr IndicesBufferSize = sizeof(aMesh->mPolygonData.Indices[0]) * aMesh->mPolygonData.NumIndices;
-	GLsizeiptr ColorBufferSize = sizeof(aMesh->mPolygonData.Color[0]) * aMesh->mPolygonData.NumColor;
-	GLsizeiptr ElementBufferSize = sizeof(aMesh->mPolygonData.Elements[0]) * aMesh->mPolygonData.NumElements;
-	GLsizeiptr TextureBufferSize = sizeof(aMesh->mPolygonData.TextureCoordinates[0]) * aMesh->mPolygonData.NumTextureCoordinates;
+	GLsizeiptr IndicesBufferSize = sizeof(aMesh->mPolygonData.Indices[0]) * aMesh->mPolygonData.Indices.size();
+	GLsizeiptr ColorBufferSize = sizeof(aMesh->mPolygonData.Color[0]) * aMesh->mPolygonData.Color.size();
+	GLsizeiptr ElementBufferSize = sizeof(aMesh->mPolygonData.Elements[0]) * aMesh->mPolygonData.Elements.size();
+	GLsizeiptr TextureBufferSize = sizeof(aMesh->mPolygonData.TextureCoordinates[0]) * aMesh->mPolygonData.TextureCoordinates.size();
 
 	GLsizeiptr CombinedBufferSize = IndicesBufferSize + ColorBufferSize + TextureBufferSize;
 
