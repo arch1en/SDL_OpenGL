@@ -27,9 +27,7 @@ public:
 	bool		CheckProgramStatus();
 	bool		CheckShaderStatus(GLuint shaderID);
 
-	int			GetModelUniformLocation(GLint& aOutLocation) const;
-	int			GetViewUniformLocation(GLint& aOutLocation) const;
-	int			GetProjectionUniformLocation(GLint& aOutLocation) const;
+	int			GetUniformLocation(const char* aName) const;
 
 private:
 

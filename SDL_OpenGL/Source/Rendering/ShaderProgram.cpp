@@ -179,41 +179,14 @@ bool ShaderProgram::CheckProgramStatus()
 	}
 }
 
-int	ShaderProgram::GetModelUniformLocation(GLint& aOutLocation) const
+int ShaderProgram::GetUniformLocation(const char* aName) const
 {
 	if (m_program == 0)
 	{
-		Log(DebugType::EDT_Error, "Getting model uniform location failed. Shared program invalid.");
-		return 1;
+		Log(DebugType::EDT_Error, "Getting %s uniform location failed. Shared program invalid.", aName);
+		return -1;
 	}
 
-	aOutLocation = glGetUniformLocation(m_program, "model");
+	return glGetUniformLocation(m_program, aName);
 
-	return 0;
-}
-
-int	ShaderProgram::GetViewUniformLocation(GLint& aOutLocation) const
-{
-	if (m_program == 0)
-	{
-		Log(DebugType::EDT_Error, "Getting view uniform location failed. Shared program invalid.");
-		return 1;
-	}
-
-	aOutLocation = glGetUniformLocation(m_program, "view");
-
-	return 0;
-}
-
-int	ShaderProgram::GetProjectionUniformLocation(GLint& aOutLocation) const
-{
-	if (m_program == 0)
-	{
-		Log(DebugType::EDT_Error, "Getting projection uniform location failed. Shared program invalid.");
-		return 1;
-	}
-
-	aOutLocation = glGetUniformLocation(m_program, "projection");
-
-	return 0;
 }

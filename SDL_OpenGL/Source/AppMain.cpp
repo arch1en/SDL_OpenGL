@@ -32,7 +32,6 @@ AppMain::AppMain()
 	, Start(0)
 	, Running(false)
 	, Event()
-	, ShaderProgram()
 	, mRenderer(std::make_shared<Renderer>())
 	, mMainCamera()
 {
@@ -100,7 +99,8 @@ bool AppMain::Init()
 	gluPerspective(45.0, WINDOW_WIDTH/WINDOW_HEIGHT, 1.0, 500.0);
 
 	// Disable depth checking (game will be 2D, so its not nescessary. In 3D it would)
-	//glDisable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_ALWAYS);
 
 	Running = true;
 
@@ -116,8 +116,6 @@ bool AppMain::InitGL()
 		return false;
 	}
 
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_ALWAYS);
 
 	mAllocatorGPU = std::make_shared<AllocatorGPU>();
 	mAllocatorGPU->Initialize();
@@ -127,14 +125,7 @@ bool AppMain::InitGL()
 	Factory->SetAllocatorGPU(mAllocatorGPU);
 	Factory->Initialize();
 
-	ShaderProgram.Init();
-
-	ShaderProgram.LoadShader("Assets\\Shaders\\hello_glsl.vert", GL_VERTEX_SHADER);
-	ShaderProgram.LoadShader("Assets\\Shaders\\hello_glsl.frag", GL_FRAGMENT_SHADER);
-
-	ShaderProgram.LinkProgram();
-	ShaderProgram.CheckProgramStatus();
-
+	mRenderer->Initiate();
 	////////////////////////////////////////////////////////////////
 	///
 	///		The correct order of initializing buffers is:
@@ -220,7 +211,6 @@ void AppMain::Render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Last binded vertex array will be drawn by OpenGL, thus we will bind VAO
-	ShaderProgram.Bind();
 	glm::mat4 View{ glm::mat4() };
 
 	// Calculate model, view and projection matrices.
@@ -231,32 +221,7 @@ void AppMain::Render()
 		Log(DebugType::EDT_Error, "Attached actor is invalid.");
 	}
 
-	GLint ModelUniformLocation = -1;
-	GLint ViewUniformLocation = -1;
-	GLint ProjectionUniformLocation = -1;
-
-	if (ShaderProgram.GetModelUniformLocation(ModelUniformLocation) != 0)
-	{
-		Log(DebugType::EDT_Notice, "Failed to retrieve model uniform location.");
-		mRenderingFailed = true;
-		return;
-	}
-
-	if (ShaderProgram.GetViewUniformLocation(ViewUniformLocation) != 0)
-	{
-		Log(DebugType::EDT_Notice, "Failed to retrieve view uniform location.");
-		mRenderingFailed = true;
-		return;
-	}
-
-	if (ShaderProgram.GetProjectionUniformLocation(ProjectionUniformLocation) != 0)
-	{
-		Log(DebugType::EDT_Notice, "Failed to retrieve view uniform location.");
-		mRenderingFailed = true;
-		return;
-	}
-
-	mRenderer->DrawMeshes(mAllocatorGPU->GetActiveVAO(), View, ModelUniformLocation, ViewUniformLocation, ProjectionUniformLocation);
+	mRenderer->DrawMeshes(mAllocatorGPU->GetActiveVAO(), View);
 
 	glFlush();
 }

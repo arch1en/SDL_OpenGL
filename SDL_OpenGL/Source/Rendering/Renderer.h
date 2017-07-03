@@ -13,6 +13,7 @@
 #include <stack>
 
 #include "Components/MeshComponent.h"
+#include "Rendering\ShaderProgram.h"
 
 class Renderer
 {
@@ -24,18 +25,21 @@ public:
 	*   Draws meshes that are on RenderingStack.
 	*/
 	void DrawMeshes(const GLsizei aVAOIndex, 
-		const glm::mat4& aViewMatrix,
-		const GLint aModelUniformLocation,
-		const GLint aViewUniformLocation,
-		const GLint aProjectionUniformLocation);
+		const glm::mat4& aViewMatrix);
 
 	void AddMeshToDraw(std::shared_ptr<MeshComponent> InMesh);
-
+	void Initiate();
 private:
 
 	GLenum	DrawingMode;
 	GLsizei	ParametersInOneVector;
 	
+	ShaderProgram	mShaderProgram;
+
+	GLint mModelUniformLocation = -1;
+	GLint mViewUniformLocation = -1;
+	GLint mProjectionUniformLocation = -1;
+
 	// Keeps all objects that needs to be rendered on the scene.
 	std::vector<std::shared_ptr<MeshComponent>> Meshes;
 

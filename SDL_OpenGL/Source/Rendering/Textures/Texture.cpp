@@ -71,8 +71,6 @@ void an::CTexture::GenerateTexture(std::string aPath)
 		Log(DebugType::EDT_Warning, "");
 	}
 
-
-	stbi_image_free(Data);
 }
 
 int an::CTexture::LoadTextureImage(std::string path, int& aOutWidth, int& aOutHeight, int& aOutNrChannels, unsigned char*& aOutImageData)

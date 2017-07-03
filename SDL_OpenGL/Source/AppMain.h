@@ -13,7 +13,6 @@
 #include "Factories\FactoryMesh.h"
 #include "Factories\FactoryActor.h"
 #include "Rendering\Renderer.h"
-#include "Rendering\ShaderProgram.h"
 #include "Core/ModuleHandler.h"
 #include "Actors\ACamera.h"
 
@@ -70,7 +69,6 @@ private:
 	Uint32			Start;
 	bool			Running;
 	SDL_Event		Event;
-	ShaderProgram	ShaderProgram;
 	FactoryActor	mFactoryActor;
 	ModuleHandler	mModuleHandler;
 	ACamera			mMainCamera;

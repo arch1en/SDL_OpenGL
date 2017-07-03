@@ -96,11 +96,11 @@ bool AllocatorGPU::AllocateStaticMesh(MeshBase* aMesh)
 
 	GLsizei Stride = TextureBufferSize > 0 ? 8 : 6 * sizeof(GLfloat);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, Stride, 0);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, Stride, (GLvoid*)(3 * sizeof(GLfloat)));
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)IndicesBufferSize);
 	if (TextureBufferSize > 0)
 	{
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, Stride, (GLvoid*)(6 * sizeof(GLfloat)));
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*)ColorBufferSize);
 	}
 
 	glEnableVertexAttribArray(0);
